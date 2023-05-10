@@ -17,17 +17,14 @@
 
 int main(void)
 {
-	pid_t child_pid; /** process ID **/
 	char *ptr; /**stores input string **/
 	char **strng; /**stored parsed argumnets **/
-	int stats; /** stores child process status **/
-	size_t w = 20; /** initial buffer size **/
+	size_t w = 20, bitm = 0; /** initial buffer size **/
 	ssize_t numb_char; /** stores num of character **/
 
 	while (1)
 	{
-		if (isatty(STDIN_FILENO)) /** check if stdin is a terminal device **/
-			printf("cimba$ ");
+		printf("cimba$ "); /** just testing **/
 		ptr = malloc(sizeof(char) * w); /** dynamically allocate memory
 						  * to input strin **/
 		numb_char = getline(&ptr, &w, stdin); /**read user input and stroe in ptr **/
@@ -36,20 +33,18 @@ int main(void)
 			free(ptr);
 			exit(EXIT_FAILURE);
 		}
-		strng = prstrtok(ptr); /** parse input string into sepere ardument**/
-		child_pid = fork(); /** creates a child process **/
-		if (child_pid == -1) /** check for fork errors **/
+
+		if (*ptr != '\n') /** check for fork errors **/
 		{
-			perror("Fork issue");
-			return (1);
+			strng = prstrtok(ptr);
+			bitm = builtincheck(strng[0]);
+			if (bitm == 0)
+				exefork(strng);
+			else if (bitm == 2)
+				continue;
 		}
-		if (child_pid == 0) /** execute command in child process **/
-		{
-			if (execvp(strng[0], strng) == -1)
-				printf("[file or directory not found]\n");
-		}
-		else /** parent process **/
-			wait(&stats); /** wait for child process to end **/
 	}
+	free(ptr);
+	free(strng);
 	exit(0);
 }

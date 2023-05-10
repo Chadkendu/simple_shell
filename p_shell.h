@@ -14,4 +14,10 @@ char **prstrtok(char *strg);
 /** p_getline function **/
 ssize_t p_getline(char **lneptr, size_t *w, FILE *strm);
 
+/** for builtincheck function **/
+int builtincheck(char *strg);
+
+/** exefork **/
+void exefork(char **argument);
+
 #endif

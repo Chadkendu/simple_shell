@@ -17,8 +17,8 @@
 
 char **prstrtok(char *strg)
 {
-	char **arstr;
-	int b = 0;
+	char **arstr, *pString;
+	int b = 0, d = 0;
 
 	/** allocate memory for token array **/
 	arstr = malloc(8 * sizeof(char *));
@@ -29,13 +29,22 @@ char **prstrtok(char *strg)
 	}
 
 	/** tokenize the string input usind a delimeter(space) **/
-	arstr[b] = strtok(strg, " ");
-	while (arstr[b] != NULL)
+	pString = strtok(strg, " ");
+	while (pString != NULL)
 	{
+		while (pString[d])
+		{
+			if (pString[d] == '\n')
+				pString[d] = '\0';
+			d++;
+		}
+		arstr[b] = pString;
 		b++;
-		arstr[b] = strtok(NULL, " ");
+		d = 0;
+		pString = strtok(NULL, " ");
 	}
 
 	/** return token array **/
+	arstr[b] = NULL;
 	return (arstr);
 }
