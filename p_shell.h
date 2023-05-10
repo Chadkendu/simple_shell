@@ -11,5 +11,7 @@
 void parv(char **arv, char **envr);
 /** prstrtok **/
 char **prstrtok(char *strg);
+/** p_getline function **/
+ssize_t p_getline(char **lneptr, size_t *w, FILE *strm);
 
 #endif
