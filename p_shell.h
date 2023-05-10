@@ -9,5 +9,7 @@
 
 /** interactive mode **/
 void parv(char **arv, char **envr);
+/** prstrtok **/
+char **prstrtok(char *strg);
 
 #endif
