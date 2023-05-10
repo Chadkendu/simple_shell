@@ -46,4 +46,10 @@ size_t p_strcspn(const char *, char);
 /** chkpath **/
 int chkpath(char *str);
 
+/** strcat **/
+char *p_strcat(char *dest, char *src);
+
+/** filecheck **/
+int chkfile(char *str);
+
 #endif
