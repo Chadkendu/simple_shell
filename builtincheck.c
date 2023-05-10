@@ -1,9 +1,4 @@
 #include "p_shell.h"
-#include <stdio.h>
-#include <unistd.h>
-#include <string.h>
-#include <sys/wait.h>
-#include <stdlib.h>
 
 /**
  * builtincheck - function to check if builtin command can be executed

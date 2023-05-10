@@ -1,9 +1,5 @@
 #include "p_shell.h"
 
-/** function declaration p_strcspn **/
-size_t p_strcspn(const char *strg, char k);
-
-
 /**
  * parv - function that executes a command
  *
@@ -17,18 +13,17 @@ size_t p_strcspn(const char *strg, char k);
 
 void parv(char **arv, char **envr)
 {
-	pid_t child_pid;
 	int stats;
-	char *strng = NULL;
-	char *argv[] = {NULL, NULL};
-	size_t w = 0;
-	ssize_t numb_char;
+	char *strng = NULL; /** input string pointer **/
+	size_t w = 0; /** aloocated buffer size for input string **/
+	ssize_t numb_char; /** no of char read by getline **/
 
 	while (1)
 	{
 		if (isatty(STDIN_FILENO))
-			printf("cimba$ ");
+			write(STDOUT_FILENO, "cimba$ ", 10);
 
+		/** reads a line input from stdin using getline **/
 		numb_char = getline(&strng, &w, stdin);
 		if (numb_char == -1)
 		{
@@ -36,43 +31,13 @@ void parv(char **arv, char **envr)
 			exit(EXIT_FAILURE);
 		}
 
+		/** remve trailing newline chars **/
 		strng[p_strcspn(strng, '\n')] = 0;
 
-		argv[0] = strng;
-
-		child_pid = fork();
-		if (child_pid == 0)
-		{
-			if (execve(argv[0], argv, envr) == -1)
-				printf("%s file or directory not found\n", arv[0]);
-		}
-		else
-			wait(&stats);
+		stats = check_command(strng, arv, envr);
+		if (stats == -1)
+			continue;
 	}
+	free(strng);
 	exit(EXIT_SUCCESS);
-}
-
-/**
- * p_strcspn - function to calc length of char number
- *
- * Description:
- * @strg: string
- * @k: character
- *
- * Return: index of @k ot the total num of chars
- *
- */
-
-size_t p_strcspn(const char *strg, char k)
-{
-	size_t b = 0;
-
-	do {
-		if (strg[b] == k)
-		{
-			return (b);
-		}
-		++b;
-	} while (strg[b - 1] != '\0');
-	return (b);
 }

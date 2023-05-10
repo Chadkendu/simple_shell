@@ -1,9 +1,4 @@
 #include "p_shell.h"
-#include <stdio.h>
-#include <unistd.h>
-#include <string.h>
-#include <sys/wait.h>
-#include <stdlib.h>
 
 /**
  * main - entry point of the shell program
