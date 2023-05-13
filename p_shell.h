@@ -138,7 +138,7 @@ void list_free(link_t *top);
 void alias_freelist(alias_t *top);
 link_t *core_add(link_t **top, char *dir);
 
-int file_commandproc(char *file_path, int *exec);
+int file_commandproc(char *filePath, int *exec);
 
 /** the void **/
 
