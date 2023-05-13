@@ -19,7 +19,7 @@
 
 /** global **/
 extern char **environ;/** environment extern var **/
-char *var_name;
+char *name;
 int hist_count;
 
 /**
@@ -33,7 +33,7 @@ int hist_count;
 
 typedef struct link_s
 {
-	char *dirc;
+	char *dir;
 	struct link_s *nex;
 }link_t;
 
@@ -48,8 +48,8 @@ typedef struct link_s
 
 typedef struct inbuilt_s
 {
-	char *var_name;
-	int (*fpnt)(char **argv, char **face);
+	char *name;
+	int (*f)(char **argv, char **ahead);
 }inbuilt_t;
 
 /**
@@ -64,8 +64,8 @@ typedef struct inbuilt_s
 
 typedef struct alias_s
 {
-	char *value;
-	char *var_name;
+	char *val;
+	char *name;
 	struct alias_s *net;
 }alias_t;
 
@@ -133,9 +133,9 @@ void env_free(void);
 char **p_envcopy(void);
 
 /** linkedlist assist **/
-alias_t *aliasend_add(alias_t *8top, char *var_name, char *var_value);
+alias_t *aliasend_add(alias_t **top, char *var_name, char *val);
 void list_free(link_t *top);
-void alias_freelist(alias_t *head);
+void alias_freelist(alias_t *top);
 link_t *core_add(link_t **top, char *dir);
 
 int file_commandproc(char *file_path, int *exec);
