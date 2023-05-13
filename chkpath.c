@@ -14,8 +14,8 @@ int chkpath(char *input)
 {
 	/** allocate memory to suffix **/
 	char *suffix = malloc(sizeof(char) * 50);
-	char *prefix = "/bin/";
-	int b, d, q = 0;
+	char *prefix = "/bin/", *d;
+	int b, q = 0;
 
 	if (suffix == NULL)/** check if memory alloc is success **/
 		return (0);
@@ -31,15 +31,17 @@ int chkpath(char *input)
 	}
 
 	/** loop through input prefix and stroe suffix in new array **/
-	for (d = b; input[d] != '\0'; d++)
+	b = 0;
+	while (input[b] != '\0')
 	{
-		suffix[q] = input[d];
+		suffix[q] = input[b];
 		q++;
+		b++;
 	}
 	suffix[q] = '\0';
 
 	d = chkfile(suffix);
-	if (d == 1)
+	if (d == NULL)
 	{
 		free(suffix);
 		return (1);

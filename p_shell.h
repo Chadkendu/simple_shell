@@ -5,6 +5,7 @@
 #include <sys/wait.h>
 #include <stdlib.h>
 #include <string.h>
+#include <dirent.h>
 #include <sys/stat.h>
 #include <sys/types.h>
 #include <unistd.h>
@@ -23,10 +24,10 @@ ssize_t p_getline(char **lneptr, size_t *w, FILE *strm);
 int builtincheck(char *strg);
 
 /** exefork **/
-void exefork(char **argument);
+void exefork(char **argument, char *envi[]);
 
 /** chkfile **/
-int chkfile(char *strg);
+char *chkfile(char *strg);
 
 /** p_strcmp **/
 int p_strcmp(char *sr1, char *sr2);
@@ -49,7 +50,47 @@ int chkpath(char *str);
 /** strcat **/
 char *p_strcat(char *dest, char *src);
 
-/** filecheck **/
-int chkfile(char *str);
+/** generate_path **/
+char *generate_path(char *command);
+
+/** chk_cmdpath **/
+int chk_cmdpath(char *command);
+
+/** line_split **/
+char **line_split(char *command);
+
+/** exec_command **/
+void exec_command(char **, char **, char **);
+
+
+/** stringfunction **/
+char *p_strcat(char *, char *);
+
+
+/**
+ * struct inbuilt_s - builtin command struct
+ *
+ * Description:
+ * @command: executed builtin command
+ * @f_ptr: function pointer
+ *
+ * Return: void
+ */
+
+typedef struct inbuilt_s
+{
+	char *command;
+	size_t (*f_ptr)(char **);
+}inbuilt_t;
+
+/** p_atoi **/
+int p_atoi(char *);
+
+/** inbuilt function **/
+size_t p_exit(char **);
+size_t p_setenv(char **);
+
+/** inbuilt_match **/
+size_t inbuilt_match(char **);
 
 #endif

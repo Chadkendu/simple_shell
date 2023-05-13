@@ -5,41 +5,52 @@
  *
  * Description:
  * This function reads the cmmnad line argument and exectute them
+ * @argc: argument count
+ * @argv: argument vector
+ * @envi: environment variable
  *
  * Return: Always 0(success)
  *
  */
 
-int main(void)
+int main(int argc, char *argv[], char *envi[])
 {
-	char *ptr; /**stores input string **/
+	char *line = NULL, *command_path; /**stores input string **/
 	char **strng; /**stored parsed argumnets **/
-	size_t w = 20, bitm = 0; /** initial buffer size **/
+	size_t w = 0, stats, bitm; /** initial buffer size **/
 	ssize_t numb_char; /** stores num of character **/
+	char *err_msg;/** terminal error message **/
 
+	if (argc > 1)
+		argv[1] = NULL;
 	while (1)
 	{
-		printf("cimba$ "); /** just testing **/
-		ptr = malloc(sizeof(char) * w); /** dynamically allocate memory
-						  * to input strin **/
-		numb_char = getline(&ptr, &w, stdin); /**read user input and stroe in ptr **/
+		if (isatty(STDIN_FILENO))
+			write(STDOUT_FILENO, "cimba$ ", 10);
+		numb_char = p_getline(&line, &w, stdin); /**read user input **/
 		if (numb_char == -1) /** check for errors **/
-		{
-			free(ptr);
-			exit(EXIT_FAILURE);
-		}
+			free(line), exit(EXIT_FAILURE);
 
-		if (*ptr != '\n') /** check for fork errors **/
+		if (*line != '\n') /** check for fork errors **/
 		{
-			strng = prstrtok(ptr);
-			bitm = builtincheck(strng[0]);
-			if (bitm == 0)
-				exefork(strng);
-			else if (bitm == 2)
-				continue;
+			strng = line_split(line);
+			bitm = inbuilt_match(strng);
+			err_msg = p_strcat(strng[0], "  not a valid command\n");
+			command_path = generate_path(strng[0]);
+			if (command_path)
+			{
+				strng[0] = command_path;
+			}
+			else
+				stats = chkpath(strng[0]);
+
+			if (stats == 1 || command_path)
+				exec_command(strng, argv, envi);
+			if (stats != 1 && !command_path && bitm == 0)
+				write(STDERR_FILENO, err_msg, p_strlent(err_msg));
 		}
 	}
-	free(ptr);
+	free(line);
 	free(strng);
 	exit(0);
 }

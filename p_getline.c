@@ -12,43 +12,72 @@
  *
  */
 
+int limstrg(char *instr);
+
 ssize_t p_getline(char **lneptr, size_t *w, FILE *strm)
 {
-	char strg[120]; /** declares a buffer to hold temporary input data **/
+	size_t strg = 120; /** declares a buffer to hold temporary input data **/
+	size_t *strglen = &strg, n;
 
+	if (!(isatty(STDIN_FILENO)))
+		printf("\n");
 	if (lneptr == NULL || w == NULL || strm == NULL)
 	{
-		perror("invalid parameters");
-		exit(EXIT_FAILURE);
+		perror("invalid parameters"), exit(EXIT_FAILURE);
 	} /** checks for invalid parameters **/
 	if (*lneptr == NULL)
 	{
-		*lneptr = malloc(sizeof(strg));
+		*lneptr = malloc(sizeof(char) * (*strglen));
 		if (*lneptr == NULL)
 		{
-			perror("Can't allocate memory");
-			exit(EXIT_FAILURE);
+			perror("Can't allocate memory"), exit(EXIT_FAILURE);
 		}
 	} /** allocates memory for the buffer to stroe input data **/
-	*lneptr[0] = '\0'; /**initialize firat element of the buffer to null **/
-	while (fgets(*lneptr, *w, strm)) /** reads data from stream till newline
-					  * char if found or end of line is reached **/
+	else
+		*lneptr = realloc(*lneptr, *strglen);
+	while (1)
 	{
-		if ((*w - strlen(*lneptr)) < sizeof(strg))
+		*lneptr = fgets(*lneptr, *strglen, strm);
+		n = limstrg(*lneptr);
+		if (n > (*strglen - 10))
 		{
-			*w *= 2;
-			*lneptr = realloc(*lneptr, *w);
+			*strglen = (*strglen) * 2;
+			*lneptr = realloc(*lneptr, *strglen);
 			if (*lneptr == NULL)
-			{
-				perror("Can't allocate space");
-				exit(EXIT_FAILURE);
-			} /** to reasize the buffer if large **/
+				exit(1);
 		}
-		strcat(*lneptr, strg); /**append input data to buffer **/
-		if ((*lneptr)[strlen(*lneptr) - 1] == '\n')
-		{
-			return (strlen(*lneptr));
-		}
+		if (n < (*strglen - 10))
+			break;
 	}
-	return (0);
+	if (n < (*strglen - 10))
+	{
+		*lneptr = realloc(*lneptr, n + 1);
+		if (*lneptr == NULL)
+			exit(0);
+		*w = limstrg(*lneptr);
+		return (1);
+	}
+	return (-1);
+}
+
+/**
+ * limstrg - takes pointer to array and return int
+ *
+ * Description:
+ * @instr: input string
+ *
+ * Return: void
+ *
+ */
+
+int limstrg(char *instr)
+{
+	int length = 0;
+
+	while (instr[length] != '\n')
+	{
+		length++;
+	}
+	length++;
+	return (length);
 }

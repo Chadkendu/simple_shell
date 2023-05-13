@@ -15,22 +15,19 @@
  *
  */
 
-int chkfile(char *strg)
+char *chkfile(char *strg)
 {
 	int b = 0, w = 0; /** initialize int variable to 0 **/
-	char *line, d; /** declare char pointer line and d **/
+	char *line, d, *cart; /** declare char pointer line and d **/
 	FILE *file; /** declare file pointer **/
 
 	line = malloc(sizeof(char) * 50); /** allocate memoey **/
 	if (line == NULL)
-		return (0);
-
+		return (NULL);
 	file = fopen("words.txt", "r");
 	if (file == NULL)
 	{
-		perror("Can't open file");
-		free(line);
-		return (0);
+		return (NULL);
 	}
 
 	while (!feof(file))
@@ -42,25 +39,25 @@ int chkfile(char *strg)
 			line[w] = '\0';
 			if (p_strcmp(line, strg) == 0)
 			{
+				cart = p_strcat("/bin/", strg);
 				free(line);
 				fclose(file);
-				return (1);
+				return (cart);
 			}
 			w = -1;
 		}
 		w = w + 1;
 		b++;
 	}
-
 	line[w] = '\0';
 	if (p_strcmp(line, strg) == 0)
 	{
+		cart = p_strcat("/bin/", strg);
 		free(line);
 		fclose(file);
-		return (1);
+		return (cart);
 	}
-
 	free(line);
 	fclose(file);
-	return (0);
+	return (NULL);
 }
