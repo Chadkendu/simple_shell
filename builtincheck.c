@@ -1,56 +1,106 @@
 #include "p_shell.h"
 
+void help_cd(void);
+void help_all(void);
+void help_exit(void);
+void help_alias(void);
+void help_help(void);
+
 /**
- * builtincheck - function to check if builtin command can be executed
- * without forking it
- *
- * Description:
- * @strg: string for builtin command
- *
- * Return: 1(false), 0(true)
- *
+ * help_help - Displays information on the parv command
  */
 
-int builtincheck(char *strg)
+void help_help(void)
 {
-	char **arry;
-	int b = 0;
-	char *usern;
+	char *message = "help: See all possible parv inbuilt commands.\n";
 
-	arry = malloc(sizeof(char *) * 3);
-	if (arry == NULL)
-		return (0);
-	arry[0] = "help";
-	arry[1] = "cd";
-	arry[2] = "exit";
+	write(STDOUT_FILENO, message, p_strlent(message));
+	message = "help [BUILTIN NAME] ";
+	write(STDOUT_FILENO, message, p_strlent(message));
+	message = "inbuilt command.\n";
+	write(STDOUT_FILENO, message, p_strlent(message));
+}
 
-	for (b = 0; b < 3; b++)
-	{
-		if (strcmp(arry[b], strg) == 0)
-		{
-			break;
-		}
-		b++;
-	}
-	b++;
-	switch (b)
-	{
-		case 1:
-			chdir(strg);
-			free(arry);
-			return (1);
-		case 2:
-			write(STDOUT_FILENO, "welcome", 2);
-			free(arry);
-			return (2);
-		case 3:
-			usern = getenv("HOSTNAME");
-			printf("%s you are welcome\n", usern);
-			free(arry);
-			return (1);
-		default:
-			free(arry);
-			return (0);
-	}
-	return (0);
+/**
+ * help_cd - Displays information on the parv command
+ */
+
+void help_cd(void)
+{
+	char *message = "cd: cd [DIRECTORY]";
+
+	write(STDOUT_FILENO, message, p_strlent(message));
+	message = " process to DIRECTORY\n";
+	write(STDOUT_FILENO, message, p_strlent(message));
+	message = "command is interpreted as cd HOME"\n;
+	write(STDOUT_FILENO, message, p_strlent(message));
+	message = " given, the command is interpreted  cd $OLDPWD.\n\n";
+	write(STDOUT_FILENO, message, p_strlent(message));
+	message = "The environment variables PWD and OLDPWD are updated ";
+	write(STDOUT_FILENO, message, p_strlent(message));
+	message = "after a change of directory.\n";
+	write(STDOUT_FILENO, message, p_strlent(message));
+}
+
+/**
+ * help_exit - displays info on the parv command line
+ */
+
+void help_exit(void)
+{
+	char *message = "exit: exit [STATUS]";
+
+	write(STDOUT_FILENO, message, p_strlent(message));
+	message = "to exit the shell.";
+	write(STDOUT_FILENO, message, p_strlent(message));
+	message = " If no argument  the command is interpreted as";
+	write(STDOUT_FILENO, message, p_strlent(message));
+	message = " exit 0.\n";
+	write(STDOUT_FILENO, message, p_strlent(message));
+}
+
+/**
+ * help_all - Displays all possible builtin parv command
+ */
+
+void help_all(void)
+{
+	char *message = "Parv commands are defined internally.\n";
+
+	write(STDOUT_FILENO, message, p_strlent(message));
+	message = "Type 'help' to see this list.\nType 'help name' to find ";
+	write(STDOUT_FILENO, message, p_strlent(message));
+	message = "out more about function 'name'.\n\n  alias   \t";
+	write(STDOUT_FILENO, message, p_strlent(message));
+	message = "alias [NAME[='VALUE'] ...]\n  cd    \tcd   ";
+	write(STDOUT_FILENO, message, p_strlent(message));
+	message = "[DIRECTORY]\n  exit    \texit [STATUS]\n  env     \tenv";
+	write(STDOUT_FILENO, message, p_strlent(message));
+	message = "\n  setenv  \tsetenv [VARIABLE] [VALUE]\n  unsetenv\t";
+	write(STDOUT_FILENO, message, p_strlent(message));
+	message = "unsetenv [VARIABLE]\n";
+	write(STDOUT_FILENO, message, p_strlent(message));
+}
+
+/**
+ * help_alias - Displays information on the parv command
+ */
+
+void help_alias(void)
+{
+	char *message = "alias: alias [NAME[='VALUE']\n";
+
+	write(STDOUT_FILENO, message, p_strlent(message));
+	message = "\n\talias: Prints list of all aliases,;
+	write(STDOUT_FILENO, message, p_strlent(message));
+	message = "the format NAME='VALUE'.\n\talias name [name2 ...]:prints";
+	write(STDOUT_FILENO, message, _strlent(message));
+	message = " the aliases name, name2, etc. one per line, in the ";
+	write(STDOUT_FILENO, message, p_strlent(message));
+	message = "form NAME='VALUE'.\n\talias NAME='VALUE' [...]: Defines";
+	write(STDOUT_FILENO, message, p_strlent(message));
+	message = " an alias for each NAME whose VALUE is given. If NAME ";
+	write(STDOUT_FILENO, message, p_strlent(message));
+	message = "is already an alias, replace its value with VALUE.\n";
+	write(STDOUT_FILENO, message, p_strlent(message));
 }
