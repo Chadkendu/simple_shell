@@ -78,7 +78,7 @@ ssize_t p_getline(char **lneptr, size_t *w, FILE *strm);
 link_t *path_dir(char *path);
 void *p_realloc(void *ptr, unsigned int prev_size, unsigned int pres_size);
 char *acq_location(char *prompt);
-char **p_strtok(char *line, char *delimeter);
+char **p_strtok(char *strg, char *delimeter);
 void list_free(link_t *top);
 int execute(char **args, char **ahead);
 
