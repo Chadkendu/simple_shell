@@ -1,56 +1,68 @@
 #include "p_shell.h"
 
 /**
- * main - entry point of the shell program
+ * main - entry point of the UNIX shell
  *
  * Description:
  * This function reads the cmmnad line argument and exectute them
- * @argc: argument count
- * @argv: argument vector
- * @envi: environment variable
+ * @argc: argument count number
+ * @argv: argument vector array
  *
- * Return: Always 0(success)
+ * Return: value of last command
  *
  */
 
-int main(int argc, char *argv[], char *envi[])
+int main(int argc, char *argv[])
 {
-	char *line = NULL, *command_path; /**stores input string **/
-	char **strng; /**stored parsed argumnets **/
-	size_t w = 0, stats, bitm; /** initial buffer size **/
-	ssize_t numb_char; /** stores num of character **/
-	char *err_msg;/** terminal error message **/
+	int exitStat = 0, exits;
+	int *exec = &exits;
+	char *prompt = "cimba$ ", *newLine = "\n";
 
-	if (argc > 1)
-		argv[1] = NULL;
+	/** initailize global variable **/
+	name = argv[0];
+	hist_count = 1;
+	aliaz = NULL;
+	signal(SIGINT, handle_sig);
+
+	*exec = 0;
+
+	/** copy environment variable **/
+	envir = p_copyenv();
+	if (!envir)
+		exit(-100);
+
+	/** check for file commands **/
+	if (argc != 1)
+	{
+		exitStat = file_commandproc(argv[1], exec);
+		env_free();
+		alias_freelist(alaiz);
+		return (*exec);
+	}
+	/** check for non-interactive mode **/
+	if (!isatty(STDIN_FILENO))
+	{
+		while (exitStat != FILE_END && exitStat != EXIT)
+			exitStat = args_handle(exec);
+		env_free();
+		alias_freelist(aliaz);
+		return (*exec);
+	}
+	/** interactive mode **/
 	while (1)
 	{
-		if (isatty(STDIN_FILENO))
-			write(STDOUT_FILENO, "cimba$ ", 10);
-		numb_char = p_getline(&line, &w, stdin); /**read user input **/
-		if (numb_char == -1) /** check for errors **/
-			free(line), exit(EXIT_FAILURE);
-
-		if (*line != '\n') /** check for fork errors **/
+		write(STDOUT_FILENO, prompt, 2);
+		exitStat = args_handle(exec);
+		if (exitStat == FILE_END || exitStat == EXIT)
 		{
-			strng = line_split(line);
-			bitm = inbuilt_match(strng);
-			err_msg = p_strcat(strng[0], "  not a valid command\n");
-			command_path = generate_path(strng[0]);
-			if (command_path)
-			{
-				strng[0] = command_path;
-			}
-			else
-				stats = chkpath(strng[0]);
-
-			if (stats == 1 || command_path)
-				exec_command(strng, argv, envi);
-			if (stats != 1 && !command_path && bitm == 0)
-				write(STDERR_FILENO, err_msg, p_strlent(err_msg));
+			if (exitStat = FILE_END)
+				write(STDOUT_FILENO, newLine, 1);
+			env_free();
+			alias_freelist(aliaz);
+			exit(*exec);
 		}
 	}
-	free(line);
-	free(strng);
-	exit(0);
+	env_free();
+	alias_freelist(aliaz);
+	return (*exec);
 }

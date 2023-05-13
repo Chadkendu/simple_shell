@@ -82,6 +82,10 @@ char **p_strtok(char *strg, char *delimeter);
 void list_free(link_t *top);
 int execute(char **args, char **ahead);
 
+/** p_shell.c functions **/
+int execute(char **args, char **ahead);
+void handle_sig(int signal);
+
 /** for input **/
 char **alias_replace(char **args);
 void line_handle(char **line, ssize_t scan);
