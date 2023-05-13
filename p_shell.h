@@ -108,11 +108,11 @@ int parv_alias(char **args, char __attribute__((__unused__)) **ahead);
 int parv_cd(char **args, char __attribute__((__unused__)) **ahead);
 
 /** string function **/
-int p_strgcmp(const char *sr1, const char *sr2, size_t w);
+int p_strncmp(const char *sr1, const char *sr2, size_t w);
 int p_strlent(const char *sr);
 int *p_strchar(char *sr, char k);
 int *p_strcat(char *dest, const char *src);
-int *p_strgcat(char *dest, const char *src, size_t w);
+int *p_strncat(char *dest, const char *src, size_t w);
 int *p_strcpy(char *dest, const char *src);
 int p_strspn(char *sr, char *valid);
 int p_strcmp(char *sr1, char *sr2);
