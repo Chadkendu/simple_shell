@@ -54,7 +54,7 @@ int parv_cd(char **args, char __attribute__((__unused__)) **ahead)
 {
 	char **dirInfo, *newLine = "\n";
 	char *prev_pwd = NULL, *pwd = NULL;
-	struct stat dirc;
+	struct stats dir;
 
 	prev_pwd = getcwd(prev_pwd, 0);
 	if (!prev_pwd)
@@ -78,7 +78,7 @@ int parv_cd(char **args, char __attribute__((__unused__)) **ahead)
 		}
 		else
 		{
-			if (stat(args[0], &dirc) == 0 && S_ISDIR(dirc.st_mode)
+			if (stats(args[0], &dirc) == 0 && S_ISDIR(dirc.st_mode)
 			    && ((dirc.st_mode & S_IXUSR) != 0))
 				chdir(args[0]);
 			else
@@ -113,7 +113,7 @@ int parv_cd(char **args, char __attribute__((__unused__)) **ahead)
 		return (-1);
 	if (args[0] && args[0][0] == '-' && args[0][1] != '-')
 	{
-		write(STDOUT_FILENO, pwd, P_strlent(pwd));
+		write(STDOUT_FILENO, pwd, p_strlent(pwd));
 		write(STDOUT_FILENO, newLine, 1);
 	}
 	free(prev_pwd);
@@ -168,7 +168,7 @@ int (*inbuilt_get(char *command))(char **args, char **ahead)
 
 int parv_exit(char **args, char **ahead)
 {
-	int b, lenOfInt = 10;
+	int b = 0, lenOfInt = 10;
 	unsigned int numb = 0, maxim = 1 << (sizeof(int) * 8 - 1);
 
 	if (args[0])

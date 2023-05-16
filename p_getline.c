@@ -1,17 +1,21 @@
 #include "p_shell.h"
 
 /**
- * p_getline - reads the line from a stream
+ * assLineptr - Reassign lineptr variable for p_getline function
  *
  * Description:
- * @lneptr: address of a pointer to the buffer to stre line
- * @w: pointer to the buffer size
- * @strm: the stream to read from
+ * @lneptr: stored input string buffer
+ * @w: lneptr size
+ * @bSize: buffer size
+ * @buff: assigned string ti lneptr
  *
- * Return: the number of character read (0), or failed (1)
+ * Return: void
  *
  */
 
+void *p_realloc(void *ptr, unsigned int prev_size, unsigned int pres_size);
+void assLineptr(char **lneptr, size_t *w, char *buffer, size_t bSize);
+ssize_t p_getline(char **lneptr, size_t *w, FILE *strm);
 int limstrg(char *instr);
 
 ssize_t p_getline(char **lneptr, size_t *w, FILE *strm)

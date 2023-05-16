@@ -1,6 +1,6 @@
 #include "p_shell.h"
 
-int err_create(char **args, int err);
+int err_create(char **args, int erro);
 int numb_len(int numb);
 char *p_atoi(int numb);
 
@@ -15,34 +15,34 @@ char *p_atoi(int numb);
 
 char *p_atoi(int numb)
 {
-	char *buffer;
+	char *buff;
 	int length = numb_len(numb);
 	unsigned int numbOne;
 
-	buffer = malloc(sizeof(char) * (length + 1));
-	if (!buffer)
+	buff = malloc(sizeof(char) * (length + 1));
+	if (!buff)
 		return (NULL);
 
-	buffer[length] = '\0';
+	buff[length] = '\0';
 
 	if (numb < 0)
 	{
-		numOne = numb * -1;
-		buffer[0] = '-';
+		numbOne = numb * -1;
+		buff[0] = '-';
 	}
 	else
 	{
-		numOne = numb;
+		numbOne = numb;
 	}
 
 	length--;
 	do {
-		buffer[length] = (numOne % 10) + '0';
-		numOne /= 10;
+		buff[length] = (numbOne % 10) + '0';
+		numbOne /= 10;
 		length--;
-	} while (numOne > 0);
+	} while (numbOne > 0);
 
-	return (buffer);
+	return (buff);
 }
 
 /**
@@ -57,22 +57,22 @@ char *p_atoi(int numb)
 
 int numb_len(int numb)
 {
-	unsigned int numOne;
+	unsigned int numbOne;
 	int length = 1;
 
 	if (numb < 0)
 	{
 		length++;
-		numOne = numb * -1;
+		numbOne = numb * -1;
 	}
 	else
 	{
-		numOne = numb;
+		numbOne = numb;
 	}
-	while (numOne > 9)
+	while (numbOne > 9)
 	{
 		length++;
-		numOne /= 10;
+		numbOne /= 10;
 	}
 
 	return (length);
@@ -88,11 +88,11 @@ int numb_len(int numb)
  * Return: value of the error
  */
 
-int err_create(char **args, int err)
+int err_create(char **args, int erro)
 {
 	char *error;
 
-	switch (err)
+	switch (erro)
 	{
 	case -1:
 		error = err_env(args);
@@ -119,5 +119,5 @@ int err_create(char **args, int err)
 
 	if (error)
 		free(error);
-	return (err);
+	return (erro);
 }

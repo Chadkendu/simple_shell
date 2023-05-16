@@ -21,7 +21,7 @@ int file_commandproc(char *filePath, int *exec)
 	unsigned int lineSize = 0;
 	unsigned int prev_size = 120;
 	char *line, **args, **ahead;
-	char buffer[120];
+	char buff[120];
 	int exitStat;
 
 	hist_count = 0;
@@ -35,13 +35,13 @@ int file_commandproc(char *filePath, int *exec)
 	if (!line)
 		return (-1);
 	do {
-		bScan = read(file, buffer, 119);
+		bScan = read(file, buff, 119);
 		if (bScan == 0 && lineSize == 0)
 			return (*exec);
-		buffer[bScan] = '\0';
+		buff[bScan] = '\0';
 		lineSize += bScan;
 		line = p_realloc(line, prev_size, lineSize);
-		p_strcat(line, buffer);
+		p_strcat(line, buff);
 		prev_size = lineSize;
 	} while (bScan);
 	for (b = 0; line[b] == '\n'; b++)
@@ -98,7 +98,7 @@ int file_commandproc(char *filePath, int *exec)
 
 int Xopen(char *filePath)
 {
-	char *error, *hiStr;
+	char *erro, *hiStr;
 	int length;
 
 	hiStr = p_atoi(hist_count);
@@ -106,22 +106,22 @@ int Xopen(char *filePath)
 		return (127);
 
 	length = p_strlent(name) + p_strlent(hiStr) + p_strlent(filePath) + 16;
-	error = malloc(sizeof(char) * (length + 1));
-	if (!error)
+	erro = malloc(sizeof(char) * (length + 1));
+	if (!erro)
 	{
 		free(hiStr);
 		return (127);
 	}
 
-	p_strcpy(error, name);
-	p_strcat(error, ": ");
-	p_strcat(error, hist_str);
-	p_strcat(error, ": Invalid access ");
-	p_strcat(error, file_path);
-	p_strcat(error, "\n");
+	p_strcpy(erro, name);
+	p_strcat(erro, ": ");
+	p_strcat(erro, hist_str);
+	p_strcat(erro, ": Invalid access ");
+	p_strcat(erro, file_path);
+	p_strcat(erro, "\n");
 
 	free(hiStr);
-	write(STDERR_FILENO, error, length);
-	free(error);
+	write(STDERR_FILENO, erro, length);
+	free(erro);
 	return (127);
 }

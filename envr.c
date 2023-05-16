@@ -2,7 +2,7 @@
 
 int parv_env(char **args, char __attribute__((__unused__)) **ahead);
 int parv_unsetenv(char **args, char __attribute__((__unused__)) **ahead);
-int parv_setenv(char *8args, char __attribute__((__unused__)) **ahead);
+int parv_setenv(char **args, char __attribute__((__unused__)) **ahead);
 
 /**
  * parv_setenv - Changes or adds environmental variable to PATH
@@ -19,7 +19,7 @@ int parv_setenv(char **args, char __attribute__((__unused__)) **ahead)
 {
 	char **envirVar = NULL, **newEnviron, *newValue;
 	size_t size;
-	int index;
+	int inDex;
 
 	if (!args[0] || !args[1])
 		return (err_create(args, -1));
@@ -48,13 +48,13 @@ int parv_setenv(char **args, char __attribute__((__unused__)) **ahead)
 		return (err_create(args, -1));
 	}
 
-	for (index = 0; envir[index]; index++)
-		newEnviron[index] = envir[index];
+	for (inDex = 0; envir[inDex]; inDex++)
+		newEnviron[inDex] = envir[inDex];
 
 	free(envir);
 	envir = newEnviron;
-	envir[index] = newValue;
-	envir[index + 1] = NULL;
+	envir[inDex] = newValue;
+	envir[inDex + 1] = NULL;
 
 	return (0);
 }
@@ -72,15 +72,15 @@ int parv_setenv(char **args, char __attribute__((__unused__)) **ahead)
 
 int parv_env(char **args, char __attribute__((__unused__)) **ahead)
 {
-	int index;
+	int inDex;
 	char new = '\n';
 
 	if (!envir)
 		return (-1);
 
-	for (index = 0; envir[index]; index++)
+	for (inDex = 0; envir[inDex]; inDex++)
 	{
-		write(STDOUT_FILENO, envir[index], p_strlent(envir[index]));
+		write(STDOUT_FILENO, envir[inDex], p_strlent(envir[inDex]));
 		write(STDOUT_FILENO, &new, 1);
 	}
 	(void)args;
@@ -102,7 +102,7 @@ int parv_unsetenv(char **args, char __attribute__((__unused__)) **ahead)
 {
 	char **envirVar, **newEnviron;
 	size_t size;
-	int index, indexTwo;
+	int inDex, inDexTwo;
 
 	if (!args[0])
 		return (err_create(args, -1));
@@ -117,15 +117,15 @@ int parv_unsetenv(char **args, char __attribute__((__unused__)) **ahead)
 	if (!newEnviron)
 		return (err_create(args, -1));
 
-	for (index = 0, indexTwo = 0; envir[index]; index++)
+	for (inDex = 0, inDexTwo = 0; envir[inDex]; inDex++)
 	{
-		if (*envirVar == envir[index])
+		if (*envirVar == envir[inDex])
 		{
 			free(*envirVar);
 			continue;
 		}
-		newEnviron[indexTwo] = envir[index];
-		indexTwo++;
+		newEnviron[inDexTwo] = envir[inDex];
+		inDexTwo++;
 	}
 	free(envir);
 	envir = newEnviron;

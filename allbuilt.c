@@ -10,7 +10,7 @@ void alias_set(char *varName, char *value);
  *
  * Description:
  * @varName: alias name
- * @value: alias value. First character '='
+ * @value: alias value. First character ('=')
  *
  * Return: void
  */
@@ -41,7 +41,7 @@ void alias_set(char *varName, char *value)
 			temp->value = newValue;
 			break;
 		}
-		temp = temp->next;
+		temp = temp->nex;
 	}
 	if (!temp)
 		core_add(&aliaz, varName, newValue);
@@ -68,7 +68,7 @@ int parv_alias(char **args, char __attribute__((__unused__)) **ahead)
 		while (temp)
 		{
 			alias_print(temp);
-			temp = temp->next;
+			temp = temp->nex;
 		}
 		return (exitStat);
 	}
@@ -85,7 +85,7 @@ int parv_alias(char **args, char __attribute__((__unused__)) **ahead)
 					alias_print(temp);
 					break;
 				}
-				temp = temp->next;
+				temp = temp->nex;
 			}
 			if (!temp)
 				exitStat = err_create(args + b, 1);

@@ -42,6 +42,6 @@ void help_setenv(void)
 	write(STDOUT_FILENO, message, p_strlent(message));
 	message = "environment variable\n";
 	write(STDOUT_FILENO, message, p_strlent(message));
-	msg = "Failed: display message to stderr.\n";
+	message = "Failed: display message to stderr.\n";
 	write(STDOUT_FILENO, message, p_strlent(message));
 }

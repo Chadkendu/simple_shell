@@ -32,7 +32,7 @@ void help_cd(void)
 	write(STDOUT_FILENO, message, p_strlent(message));
 	message = " process to DIRECTORY\n";
 	write(STDOUT_FILENO, message, p_strlent(message));
-	message = "command is interpreted as cd HOME"\n;
+	message = "command is interpreted as cd HOME\n";
 	write(STDOUT_FILENO, message, p_strlent(message));
 	message = " given, the command is interpreted  cd $OLDPWD.\n\n";
 	write(STDOUT_FILENO, message, p_strlent(message));
@@ -91,15 +91,15 @@ void help_alias(void)
 	char *message = "alias: alias [NAME[='VALUE']\n";
 
 	write(STDOUT_FILENO, message, p_strlent(message));
-	message = "\n\talias: Prints list of all aliases,;
+	message = "Prints list of all aliases,;
 	write(STDOUT_FILENO, message, p_strlent(message));
-	message = "the format NAME='VALUE'.\n\talias name [name2 ...]:prints";
+	message = "the format NAME='VALUE' name [name2 ...]:prints";
 	write(STDOUT_FILENO, message, _strlent(message));
 	message = " the aliases name, name2, etc. one per line, in the ";
 	write(STDOUT_FILENO, message, p_strlent(message));
-	message = "form NAME='VALUE'.\n\talias NAME='VALUE' [...]: Defines";
+	message = "form NAME='VALUE'.alias NAME='VALUE' [...]: Defines";
 	write(STDOUT_FILENO, message, p_strlent(message));
-	message = " an alias for each NAME whose VALUE is given. If NAME ";
+	message = " an alias f is given. If NAME ";
 	write(STDOUT_FILENO, message, p_strlent(message));
 	message = "is already an alias, replace its value with VALUE.\n";
 	write(STDOUT_FILENO, message, p_strlent(message));

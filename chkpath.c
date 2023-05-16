@@ -18,7 +18,10 @@ int chkpath(char *input)
 	int b, q = 0;
 
 	if (suffix == NULL)/** check if memory alloc is success **/
-		return (0);
+	{
+		free(suffix);
+		return (1);
+	}
 
 	/** loop through prefix to comapre input **/
 	for (b = 0; prefix[b] != '\0'; b++)

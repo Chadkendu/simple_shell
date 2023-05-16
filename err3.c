@@ -17,7 +17,7 @@ char *err_syntax(char **args);
 
 char *err_syntax(char **args)
 {
-	char *error, *hiStr;
+	char *erro, *hiStr;
 	int length;
 
 	hiStr = p_atoi(hist_count);
@@ -25,22 +25,22 @@ char *err_syntax(char **args)
 		return (NULL);
 
 	length = p_strlent(name) + p_strlent(hiStr) + p_strlent(args[0]) + 33;
-	error = malloc(sizeof(char) * (length + 1));
-	if (!error)
+	erro = malloc(sizeof(char) * (length + 1));
+	if (!erro)
 	{
 		free(hiStr);
 		return (NULL);
 	}
 
-	p_strcpy(error, name);
-	p_strcat(error, ": ");
-	p_strcat(error, hiStr);
-	p_strcat(error, ": Syntax Invalid \"");
-	p_strcat(error, args[0]);
-	p_strcat(error, "\" not expected\n");
+	p_strcpy(erro, name);
+	p_strcat(erro, ": ");
+	p_strcat(erro, hiStr);
+	p_strcat(erro, ": Syntax Invalid \"");
+	p_strcat(erro, args[0]);
+	p_strcat(erro, "\" not expected\n");
 
 	free(hiStr);
-	return (error);
+	return (erro);
 }
 
 /**
@@ -54,7 +54,7 @@ char *err_syntax(char **args)
 
 char *err_exit(char **args)
 {
-	char *error, *hiStr;
+	char *erro, *hiStr;
 	int length;
 
 	hiStr = p_atoi(hist_count);
@@ -62,22 +62,22 @@ char *err_exit(char **args)
 		return (NULL);
 
 	length = p_strlent(name) + p_strlent(hiStr) + p_strlent(args[0]) + 27;
-	error = malloc(sizeof(char) * (length + 1));
-	if (!error)
+	erro = malloc(sizeof(char) * (length + 1));
+	if (!erro)
 	{
 		free(hiStr);
 		return (NULL);
 	}
 
-	p_strcpy(error, name);
-	p_strcat(error, ": ");
-	p_strcat(error, hiStr);
-	p_strcat(error, ": Number invalid ");
-	p_strcat(error, args[0]);
-	p_strcat(error, "\n");
+	p_strcpy(erro, name);
+	p_strcat(erro, ": ");
+	p_strcat(erro, hiStr);
+	p_strcat(erro, ": Number invalid ");
+	p_strcat(erro, args[0]);
+	p_strcat(erro, "\n");
 
 	free(hiStr);
-	return (error);
+	return (erro);
 }
 
 /**
@@ -91,7 +91,7 @@ char *err_exit(char **args)
 
 char *err_cd(char **args)
 {
-	char *error, *hiStr;
+	char *erro, *hiStr;
 	int length;
 
 	hiStr = p_atoi(hist_count);
@@ -101,25 +101,25 @@ char *err_cd(char **args)
 	if (args[0][0] == '-')
 		args[0][2] = '\0';
 	length = p_strlent(name) + p_strlent(hiStr) + p_strlent(args[0]) + 24;
-	error = malloc(sizeof(char) * (length + 1));
-	if (!error)
+	erro = malloc(sizeof(char) * (length + 1));
+	if (!erro)
 	{
 		free(hiStr);
 		return (NULL);
 	}
 
-	p_strcpy(error, name);
-	p_strcat(error, ": ");
-	p_strcat(error, hiStr);
+	p_strcpy(erro, name);
+	p_strcat(erro, ": ");
+	p_strcat(erro, hiStr);
 	if (args[0][0] == '-')
-		p_strcat(error, ": cd$ Invalid option ");
+		p_strcat(erro, ": cd$ Invalid option ");
 	else
-		p_strcat(error, ": cd$ can't cd ");
-	p_strcat(error, args[0]);
-	p_strcat(error, "\n");
+		p_strcat(erro, ": cd$ can't cd ");
+	p_strcat(erro, args[0]);
+	p_strcat(erro, "\n");
 
 	free(hiStr);
-	return (error);
+	return (erro);
 }
 
 /**
@@ -133,19 +133,19 @@ char *err_cd(char **args)
 
 char *err_uno(char **args)
 {
-	char *error;
+	char *erro;
 	int length;
 
 	length = p_strlent(name) + p_strlent(args[0]) + 13;
-	error = malloc(sizeof(char) * (length + 1));
-	if (!error)
+	erro = malloc(sizeof(char) * (length + 1));
+	if (!erro)
 		return (NULL);
 
-	p_strcpy(error, "alias$ ");
-	p_strcat(error, args[0]);
-	p_strcat(error, " not found\n");
+	p_strcpy(erro, "alias$ ");
+	p_strcat(erro, args[0]);
+	p_strcat(erro, " not found\n");
 
-	return (error);
+	return (erro);
 }
 
 /**
@@ -159,7 +159,7 @@ char *err_uno(char **args)
 
 char *err_env(char **args)
 {
-	char *error, *hiStr;
+	char *erro, *hiStr;
 	int length;
 
 	hiStr = p_atoi(hist_count);
@@ -168,20 +168,20 @@ char *err_env(char **args)
 
 	args--;
 	length = p_strlent(name) + p_strlent(hiStr) + p_strlent(args[0]) + 45;
-	error = malloc(sizeof(char) * (length + 1));
-	if (!error)
+	erro = malloc(sizeof(char) * (length + 1));
+	if (!erro)
 	{
 		free(hiStr);
 		return (NULL);
 	}
 
-	p_strcpy(error, name);
-	p_strcat(error, ": ");
-	p_strcat(error, hiStr);
-	p_strcat(error, ": ");
-	p_strcat(error, args[0]);
-	p_strcat(error, ": Can't add or remove from environment\n");
+	p_strcpy(erro, name);
+	p_strcat(erro, ": ");
+	p_strcat(erro, hiStr);
+	p_strcat(erro, ": ");
+	p_strcat(erro, args[0]);
+	p_strcat(erro, ": Can't add or remove from environment\n");
 
 	free(hiStr);
-	return (error);
+	return (erro);
 }

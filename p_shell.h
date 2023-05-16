@@ -66,7 +66,7 @@ typedef struct alias_s
 {
 	char *val;
 	char *name;
-	struct alias_s *net;
+	struct alias_s *nex;
 }alias_t;
 
 /** global linked list alias **/
@@ -118,7 +118,7 @@ int p_strspn(char *sr, char *valid);
 int p_strcmp(char *sr1, char *sr2);
 
 /** handle errors **/
-int err_create(char **args, int err);
+int err_create(char **args, int erro);
 char *err_env(char **args);
 char *err_uno(char **args);
 char *err_exit(char **args);

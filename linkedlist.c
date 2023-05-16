@@ -49,14 +49,14 @@ alias_t *aliasend_add(alias_t **top, char *name, char *value)
 		free(newCore);
 		return (NULL);
 	}
-	newCnore->value = value;
+	newCore->value = value;
 	p_strcpy(newCore->name, name);
 
 	if (*top)
 	{
 		last = *top;
 		while (last->net != NULL)
-			last = last->net;
+			last = last->nex;
 		last->net = newCore;
 	}
 	else
@@ -77,15 +77,15 @@ alias_t *aliasend_add(alias_t **top, char *name, char *value)
 
 void alias_freelist(alias_t *top)
 {
-	alias_t *net;
+	alias_t *nex;
 
 	while (top)
 	{
-		net = top->next;
+		net = top->nex;
 		free(top->name);
 		free(top->value);
 		free(top);
-		top = net;
+		top = nex;
 	}
 }
 
@@ -108,14 +108,14 @@ link_t *core_add(link_t **top, char *dir)
 		return (NULL);
 
 	newCore->dir = dir;
-	newCore->net = NULL;
+	newCore->nex = NULL;
 
 	if (*top)
 	{
 		last = *top;
-		while (last->net != NULL)
-			last = last->net;
-		last->net = newCore;
+		while (last->nex != NULL)
+			last = last->nex;
+		last->nex = newCore;
 	}
 	else
 		*top = newCore;

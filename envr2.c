@@ -12,10 +12,10 @@ void env_free(void);
 
 void env_free(void)
 {
-	int index;
+	int inDex;
 
-	for (index = 0; envir[index]; index++)
-		free(envir[index]);
+	for (inDex = 0; envir[inDex]; inDex++)
+		free(envir[inDex]);
 	free(envir);
 }
 
@@ -31,13 +31,13 @@ void env_free(void)
 
 char **p_getenv(const char *var)
 {
-	int index, length;
+	int inDex, length;
 
 	length = p_strlent(var);
-	for (index = 0; envir[index]; index++)
+	for (inDex = 0; envir[inDex]; inDex++)
 	{
-		if (p_strncmp(var, envir[index], length) == 0)
-			return (&envir[index]);
+		if (p_strncmp(var, envir[inDex], length) == 0)
+			return (&envir[inDex]);
 	}
 
 	return (NULL);
@@ -56,7 +56,7 @@ char **p_copyenv(void)
 {
 	char **newEnviron;
 	size_t size;
-	int index;
+	int inDex;
 
 	for (size = 0; envir[size]; size++)
 		;
@@ -65,19 +65,19 @@ char **p_copyenv(void)
 	if (!newEnviron)
 		return (NULL);
 
-	for (index = 0; envir[index]; index++)
+	for (inDex = 0; envir[inDex]; inDex++)
 	{
-		newEnviron[index] = malloc(p_strlent(envir[index]) + 1);
+		newEnviron[inDex] = malloc(p_strlent(envir[inDex]) + 1);
 
-		if (!newEnviron[index])
+		if (!newEnviron[inDex])
 		{
-			for (index--; index >= 0; index--)
-				free(newEnviron[index]);
+			for (inDex--; inDex >= 0; inDex--)
+				free(newEnviron[inDex]);
 			free(newEnviron);
 			return (NULL);
 		}
-		p_strcpy(newEnviron[index], envir[index]);
+		p_strcpy(newEnviron[inDex], envir[inDex]);
 	}
-	newEnviron[index] = NULL;
+	newEnviron[inDex] = NULL;
 	return (newEnviron);
 }
