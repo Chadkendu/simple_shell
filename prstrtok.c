@@ -24,7 +24,7 @@ char **prstrtok(char *strg)
 	}
 
 	/** tokenize the string input usind a delimeter(space) **/
-	pString = strtok(strg, " ");
+	pString = p_strtok(strg, " ");
 	while (pString != NULL)
 	{
 		while (pString[d])
@@ -36,7 +36,7 @@ char **prstrtok(char *strg)
 		arstr[b] = pString;
 		b++;
 		d = 0;
-		pString = strtok(NULL, " ");
+		pString = p_strtok(NULL, " ");
 	}
 
 	/** return token array **/
