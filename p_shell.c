@@ -14,8 +14,8 @@
 
 int main(int argc, char *argv[])
 {
-	int exitStat = 0, exits;
-	int *exec = &exits;
+	int exitStat = 0, exi;
+	int *exec = &exi;
 	char *prompt = "cimba$ ", *newLine = "\n";
 
 	/** initailize global variable **/

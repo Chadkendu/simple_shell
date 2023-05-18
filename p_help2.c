@@ -120,8 +120,8 @@ void handleLine(char **line, ssize_t scan)
 	newLength = get_newLength(*line);
 	if (newLength == scan - 1)
 		return;
-	newLine = malloc(newLength + 1);
-	if (!newLine)
+	pres_line = malloc(newLength + 1);
+	if (!pres_line)
 		return;
 	d = 0;
 	prev_line = *line;
@@ -136,42 +136,42 @@ void handleLine(char **line, ssize_t scan)
 			{
 				if (next == ';' && past != ' ' && past != ';')
 				{
-					newLine[d++] = ' ';
-					newLine[d++] = ';';
+					pres_line[d++] = ' ';
+					pres_line[d++] = ';';
 					continue;
 				}
 				else if (past == ';' && next != ' ')
 				{
-					newLine[d++] = ';';
-					newLine[d++] = ' ';
+					pres_line[d++] = ';';
+					pres_line[d++] = ' ';
 					continue;
 				}
 				if (past != ' ')
-					newLine[d++] = ' ';
-				newLine[d++] = ';';
+					pres_line[d++] = ' ';
+				pres_line[d++] = ';';
 				if (next != ' ')
-					newLine[d++] = ' ';
+					pres_line[d++] = ' ';
 				continue;
 			}
 			else if (present == '&')
 			{
 				if (next == '&' && past != ' ')
-					newLine[d++] = ' ';
+					pres_line[d++] = ' ';
 				else if (past == '&' && next != ' ')
 				{
-					newLine[d++] = '&';
-					newLine[d++] = ' ';
+					pres_line[d++] = '&';
+					pres_line[d++] = ' ';
 					continue;
 				}
 			}
 			else if (present == '|')
 			{
 				if (next == '|' && past != ' ')
-					newLine[d++]  = ' ';
+					pres_line[d++]  = ' ';
 				else if (past == '|' && next != ' ')
 				{
-					newLine[d++] = '|';
-					newLine[d++] = ' ';
+					pres_line[d++] = '|';
+					pres_line[d++] = ' ';
 					continue;
 				}
 			}
@@ -179,15 +179,15 @@ void handleLine(char **line, ssize_t scan)
 		else if (present == ';')
 		{
 			if (b != 0 && prev_line[b - 1] != ' ')
-				newLine[d++] = ' ';
-			newLine[d++] = ';';
+				pres_line[d++] = ' ';
+			pres_line[d++] = ';';
 			if (next != ' ' && next != ';')
-				newLine[d++] = ' ';
+				pres_line[d++] = ' ';
 			continue;
 		}
-		newLine[d++] = prev_line[b];
+		pres_line[d++] = prev_line[b];
 	}
-	newLine[d] = '\0';
+	pres_line[d] = '\0';
 	free(*line);
-	*line = newLine;
+	*line = pres_line;
 }
