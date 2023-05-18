@@ -27,8 +27,8 @@ int main(int argc, char *argv[])
 	*exec = 0;
 
 	/** copy environment variable **/
-	envir = p_copyenv();
-	if (!envir)
+	environ = p_envcopy();
+	if (!environ)
 		exit(-100);
 
 	/** check for file commands **/
@@ -36,7 +36,7 @@ int main(int argc, char *argv[])
 	{
 		exitStat = file_commandproc(argv[1], exec);
 		env_free();
-		alias_freelist(alaiz);
+		alias_freelist(aliaz);
 		return (*exec);
 	}
 	/** check for non-interactive mode **/
@@ -51,11 +51,11 @@ int main(int argc, char *argv[])
 	/** interactive mode **/
 	while (1)
 	{
-		write(STDOUT_FILENO, prompt, 2);
+		write(STDOUT_FILENO, prompt, 10);
 		exitStat = args_handle(exec);
 		if (exitStat == FILE_END || exitStat == EXIT)
 		{
-			if (exitStat = FILE_END)
+			if (exitStat == FILE_END)
 				write(STDOUT_FILENO, newLine, 1);
 			env_free();
 			alias_freelist(aliaz);

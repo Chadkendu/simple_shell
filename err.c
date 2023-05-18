@@ -83,7 +83,7 @@ int numb_len(int numb)
  *
  * Description:
  * @args: array of arguments.
- * @err: error value.
+ * @erro: error value.
  *
  * Return: value of the error
  */

@@ -71,7 +71,7 @@ ssize_t get_newLength(char *line)
 			{
 				if (next == ';' && line[b - 1] != ' ' && line[b - 1] != ';')
 				{
-					newlength += 2;
+					newLength += 2;
 					continue;
 				}
 				else if (line[b - 1] == ';' && next != ' ')

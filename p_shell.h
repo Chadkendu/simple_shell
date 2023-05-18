@@ -4,6 +4,7 @@
 /** preprocessors **/
 #include <stdio.h>
 #include <sys/wait.h>
+#include <errno.h>
 #include <stdlib.h>
 #include <sys/types.h>
 #include <unistd.h>
@@ -89,7 +90,7 @@ void handle_sig(int signal);
 /** for input **/
 char **alias_replace(char **args);
 void handleLine(char **line, ssize_t scan);
-void args_free(char *args, char **ahead);
+void args_free(char **args, char **ahead);
 void rep_variable(char **args, int *exec);
 int args_call(char **args, char **ahead, int *exec);
 char *args_acq(char *line, int *exec);

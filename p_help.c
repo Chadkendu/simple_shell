@@ -20,50 +20,50 @@ int args_call(char **args, char **ahead, int *exec);
 
 int args_call(char **args, char **ahead, int *exec)
 {
-	int exitStat, index;
+	int exitStat, inDex;
 
 	if (!args[0])
 		return (*exec);
-	for (index = 0; args[index]; index++)
+	for (inDex = 0; args[inDex]; inDex++)
 	{
-		if (p_strncmp(args[index], "||", 2) == 0)
+		if (p_strncmp(args[inDex], "||", 2) == 0)
 		{
-			free(args[index]);
-			args[index] = NULL;
+			free(args[inDex]);
+			args[inDex] = NULL;
 			args = alias_replace(args);
 			exitStat = args_run(args, ahead, exec);
 			if (*exec != 0)
 			{
-				args = &args[++index];
-				index = 0;
+				args = &args[++inDex];
+				inDex = 0;
 			}
 			else
 			{
-				for (index++; args[index]; index++)
-					free(args[index]);
+				for (inDex++; args[inDex]; inDex++)
+					free(args[inDex]);
 				return (exitStat);
 			}
 		}
-		else if (p_strncmp(args[index], "&&", 2) == 0)
+		else if (p_strncmp(args[inDex], "&&", 2) == 0)
 		{
-			free(args[index]);
-			args[index] = NULL;
+			free(args[inDex]);
+			args[inDex] = NULL;
 			args = alias_replace(args);
 			exitStat = args_run(args, ahead, exec);
 			if (*exec == 0)
 			{
-				args = &args[++index];
-				index = 0;
+				args = &args[++inDex];
+				inDex = 0;
 			}
 			else
 			{
-				for (index++; args[index]; index++)
-					free(args[index]);
+				for (inDex++; args[inDex]; inDex++)
+					free(args[inDex]);
 				return (exitStat);
 			}
 		}
 	}
-	args = alias_replace(arigs);
+	args = alias_replace(args);
 	exitStat = args_run(args, ahead, exec);
 	return (exitStat);
 }

@@ -14,7 +14,7 @@ char *envir_value(char *start, int length);
  *
  */
 
-void rep_variable(char *args, int *exec)
+void rep_variable(char **args, int *exec)
 {
 	int m, n = 0, length;
 	char *replacement = NULL, *prev_line = NULL, *pres_line;
@@ -22,7 +22,7 @@ void rep_variable(char *args, int *exec)
 	prev_line = *args;
 	for (m = 0; prev_line[m]; m++)
 	{
-		if (prev_line[m] == '$' && old_line[j + 1] && prev_line[j + 1] != ' ')
+		if (prev_line[m] == '$' && prev_line[j + 1] && prev_line[n + 1] != ' ')
 		{
 			if (prev_line[m + 1] == '$')
 			{
@@ -38,8 +38,8 @@ void rep_variable(char *args, int *exec)
 			{
 				/** extract variable name to search **/
 				for (n = n + 1; prev_line[n] &&
-					     prev_line[k] != '$' &&
-					     prev_line[k] != ' '; n++)
+					     prev_line[m] != '$' &&
+					     prev_line[m] != ' '; n++)
 					;
 				length = n - (m + 1);
 				replacement = envir_value(&prev_line[n + 1], length);
@@ -67,10 +67,15 @@ void rep_variable(char *args, int *exec)
 
 
 /**
- * free_args - Frees up memory taken by args.
+ * args_free - Frees up memory taken by args.
+ *
+ * Description:
  * @args: A null-terminated double pointer containing commands/arguments.
- * @front: A double pointer to the beginning of args.
+ * @ahead: A double pointer to the beginning of args.
+ *
+ * Return: void
  */
+
 void args_free(char **args, char **ahead)
 {
 	size_t b;
@@ -85,8 +90,10 @@ void args_free(char **args, char **ahead)
  * get_pid - Gets the current process ID
  *
  * Description:
- * Reads the current process PID from the "stat" file and terminates the PID string with 
- * a null character. The "stat" file is a space-separated file containing process information.
+ * Reads the current process PID from the "stat" file
+ * and terminates the PID string with
+ * a null character. The "stat" file is a space-separated
+ * file containing process information.
  *
  * Return: current process ID or NULL on failure
  *

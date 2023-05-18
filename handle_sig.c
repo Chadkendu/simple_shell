@@ -4,18 +4,18 @@
  * handle_signal - handles the SIGNINT signal printing a new prompt
  *
  * Description:
- * @signal: signal number
+ * @sign: signal number
  *
  * Return: void
  *
  */
 
-void handle_signal(int signal)
+void handle_signal(int sign)
 {
-	char *newPrompt = "\ncimba$ ";
+	char *newPrompt = "cimba$ ";
 
-	(void)signal; /** silence unused parameter warning **/
-	signal(SIGINT, handle_signal); /** reinstall signal handler **/
+	(void)sign; /** silence unused parameter warning **/
+	sign(SIGINT, handle_signal); /** reinstall signal handler **/
 	/** print new prompt **/
-	write(STDIN_FILENO, newPrompt, strlen(newPrompt));
+	write(STDIN_FILENO, newPrompt, 10);
 }

@@ -44,7 +44,7 @@ void alias_set(char *varName, char *value)
 		temp = temp->nex;
 	}
 	if (!temp)
-		core_add(&aliaz, varName, newValue);
+		aliasend_add(&aliaz, varName, newValue);
 }
 
 /**

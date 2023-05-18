@@ -1,6 +1,66 @@
 #include "p_shell.h"
 
 /**
+ * p_getline - function to read input from stream
+ *
+ * Description:
+ * @lneptr: buffer to store input received
+ * @w: lneptr size
+ * @strm: read stream
+ *
+ * Return: read bytes (number)
+ */
+
+void *p_realloc(void *ptr, unsigned int prev_size, unsigned int pres_size);
+void assLineptr(char **lneptr, size_t *w, char *buffer, size_t bSize);
+ssize_t p_getline(char **lneptr, size_t *w, FILE *strm);
+
+ssize_t p_getline(char **lneptr, size_t *w, FILE *strm)
+{
+	static ssize_t input;
+	ssize_t exitStat;
+	char k = 'x', *buffer;
+	int v;
+
+	if (input == 0)
+		fflush(strm);
+	else
+		return (-1);
+	input = 0;
+	buffer = malloc(sizeof(char) * 120);
+	if (!buffer)
+		return (-1);
+
+	while (k != '\n')
+	{
+		v = read(STDIN_FILENO, &k, 1);
+		if (v == -1 || (v == 0 && input == 0))
+		{
+			free(buffer);
+			return (-1);
+		}
+		if (v == 0 && input != 0)
+		{
+			input++;
+			break;
+		}
+		if (input >= 120)
+			buffer = p_realloc(buffer, input, input + 1);
+
+		buffer[input] = k;
+		input++;
+	}
+	buffer[input] = '\0';
+
+	assLineptr(lneptr, w, buffer, input);
+
+	exitStat = input;
+	if (v != 0)
+		input = 0;
+	return (exitStat);
+}
+
+/**
  * assLineptr - Reassign lineptr variable for p_getline function
  *
  * Description:
@@ -13,75 +73,82 @@
  *
  */
 
-void *p_realloc(void *ptr, unsigned int prev_size, unsigned int pres_size);
-void assLineptr(char **lneptr, size_t *w, char *buffer, size_t bSize);
-ssize_t p_getline(char **lneptr, size_t *w, FILE *strm);
-int limstrg(char *instr);
-
-ssize_t p_getline(char **lneptr, size_t *w, FILE *strm)
+void assLineptr(char *lneptr, size_t *w, char *buffer, size_t bSize)
 {
-	size_t strg = 120; /** declares a buffer to hold temporary input data **/
-	size_t *strglen = &strg, n;
-
-	if (!(isatty(STDIN_FILENO)))
-		printf("\n");
-	if (lneptr == NULL || w == NULL || strm == NULL)
-	{
-		perror("invalid parameters"), exit(EXIT_FAILURE);
-	} /** checks for invalid parameters **/
 	if (*lneptr == NULL)
 	{
-		*lneptr = malloc(sizeof(char) * (*strglen));
-		if (*lneptr == NULL)
-		{
-			perror("Can't allocate memory"), exit(EXIT_FAILURE);
-		}
-	} /** allocates memory for the buffer to stroe input data **/
+		if (bSize > 120)
+			*w = bSize;
+		else
+			*w = 120;
+		*lneptr = buffer;
+	}
+	else if (*w < bSize)
+	{
+		if (bSize > 120)
+			*w = bSize;
+		else
+			*w = 120;
+		*lneptr = buffer;
+	}
 	else
-		*lneptr = realloc(*lneptr, *strglen);
-	while (1)
 	{
-		*lneptr = fgets(*lneptr, *strglen, strm);
-		n = limstrg(*lneptr);
-		if (n > (*strglen - 10))
-		{
-			*strglen = (*strglen) * 2;
-			*lneptr = realloc(*lneptr, *strglen);
-			if (*lneptr == NULL)
-				exit(1);
-		}
-		if (n < (*strglen - 10))
-			break;
+		p_strcpy(*lneptr, buffer);
+		free(buffer);
 	}
-	if (n < (*strglen - 10))
-	{
-		*lneptr = realloc(*lneptr, n + 1);
-		if (*lneptr == NULL)
-			exit(0);
-		*w = limstrg(*lneptr);
-		return (1);
-	}
-	return (-1);
 }
 
 /**
- * limstrg - takes pointer to array and return int
+ * p_realloc - Reallocate block memory with malloc and free
  *
  * Description:
- * @instr: input string
+ * @ptr: pointer to past allocated memory
+ * @prev_size: The size in bytes of ptr space
+ * @pres_size: new memory block bytes size
  *
- * Return: void
+ * Return: pres_size == prev_size (ptr)
+ * pres_size == 0 && ptr not NULL (NULL)
+ * else pointer to reallocated memory block
  *
  */
 
-int limstrg(char *instr)
+void *p_realloc(void *ptr, unsigned int prev_size, unsigned int pres_size)
 {
-	int length = 0;
+	void *memory;
+	char *ptrCopy, *fill;
+	unsigned int index;
 
-	while (instr[length] != '\n')
+	if (pres_size == prev_size)
+		return (ptr);
+
+	if (ptr == NULL)
 	{
-		length++;
+		memory = malloc(pres_size);
+		if (memory == NULL)
+			return (NULL);
+
+		return (NULL);
 	}
-	length++;
-	return (length);
+
+	if (pres_size == 0 && ptr != NULL)
+	{
+		free(ptr);
+		return (NULL);
+	}
+	
+	ptrCopy = ptr;
+	memory = malloc(sizeof(*ptrCopy) * pres_size);
+	if (memory == NULL)
+	{
+		free(ptr);
+		return (NULL);
+	}
+
+	fill = memory;
+
+	for (index = 0; index < prev_size && index < pres_size; index++)
+		fill[index] = *ptrCopy++;
+
+	free(ptr);
+	return (memory);
 }

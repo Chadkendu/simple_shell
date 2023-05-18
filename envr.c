@@ -38,7 +38,7 @@ int parv_setenv(char **args, char __attribute__((__unused__)) **ahead)
 		*envirVar = newValue;
 		return (0);
 	}
-	for (size = 0; envir[size]; size++)
+	for (size = 0; environ[size]; size++)
 		;
 
 	newEnviron = malloc(sizeof(char *) * (size + 2));
@@ -48,13 +48,13 @@ int parv_setenv(char **args, char __attribute__((__unused__)) **ahead)
 		return (err_create(args, -1));
 	}
 
-	for (inDex = 0; envir[inDex]; inDex++)
-		newEnviron[inDex] = envir[inDex];
+	for (inDex = 0; environ[inDex]; inDex++)
+		newEnviron[inDex] = environ[inDex];
 
-	free(envir);
-	envir = newEnviron;
-	envir[inDex] = newValue;
-	envir[inDex + 1] = NULL;
+	free(environ);
+	environ = newEnviron;
+	environ[inDex] = newValue;
+	environ[inDex + 1] = NULL;
 
 	return (0);
 }
@@ -75,10 +75,10 @@ int parv_env(char **args, char __attribute__((__unused__)) **ahead)
 	int inDex;
 	char new = '\n';
 
-	if (!envir)
+	if (!environ)
 		return (-1);
 
-	for (inDex = 0; envir[inDex]; inDex++)
+	for (inDex = 0; environ[inDex]; inDex++)
 	{
 		write(STDOUT_FILENO, envir[inDex], p_strlent(envir[inDex]));
 		write(STDOUT_FILENO, &new, 1);
@@ -92,7 +92,7 @@ int parv_env(char **args, char __attribute__((__unused__)) **ahead)
  *
  * Description:
  * @args: array arguments passed to shell.
- * @front: double pointer to beginning of args
+ * @ahead: double pointer to beginning of args
  *
  * Return: 0 (success), -1 (error)
  *
@@ -110,25 +110,25 @@ int parv_unsetenv(char **args, char __attribute__((__unused__)) **ahead)
 	if (!envirVar)
 		return (0);
 
-	for (size = 0; envir[size]; size++)
+	for (size = 0; environ[size]; size++)
 		;
 
 	newEnviron = malloc(sizeof(char *) * size);
 	if (!newEnviron)
 		return (err_create(args, -1));
 
-	for (inDex = 0, inDexTwo = 0; envir[inDex]; inDex++)
+	for (inDex = 0, inDexTwo = 0; environ[inDex]; inDex++)
 	{
-		if (*envirVar == envir[inDex])
+		if (*envirVar == environ[inDex])
 		{
 			free(*envirVar);
 			continue;
 		}
-		newEnviron[inDexTwo] = envir[inDex];
+		newEnviron[inDexTwo] = environ[inDex];
 		inDexTwo++;
 	}
-	free(envir);
-	envir = newEnviron;
-	envir[size - 1] = NULL;
+	free(environ);
+	environ = newEnviron;
+	environ[size - 1] = NULL;
 	return (0);
 }

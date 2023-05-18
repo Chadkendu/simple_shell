@@ -38,7 +38,7 @@ int execute(char **args, char **ahead)
 		if (child_pid == -1)
 		{
 			if (inval)
-				free(propmt);
+				free(prompt);
 			perror("Invalid child:");
 			return (1);
 		}

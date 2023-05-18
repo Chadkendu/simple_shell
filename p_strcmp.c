@@ -79,7 +79,7 @@ char *p_strchr(char *sr, char k)
 	for (index = 0; sr[index]; index++)
 	{
 		if (sr[index] == k)
-			return (k + index);
+			return (sr + index);
 	}
 	return (NULL);
 }

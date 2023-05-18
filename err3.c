@@ -123,7 +123,7 @@ char *err_cd(char **args)
 }
 
 /**
- * err_uno  function for the parv_alias error message
+ * err_uno - function for the parv_alias error message
  *
  * Description:
  * @args: array arguments passed to command
