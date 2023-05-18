@@ -12,14 +12,14 @@
 
 void list_free(link_t *top)
 {
-	link_t *net;
+	link_t *nex;
 
 	while (top)
 	{
-		net = top->net;
+		nex = top->nex;
 		free(top->dir);
 		free(top);
-		top = net;
+		top = nex;
 	}
 }
 
@@ -42,7 +42,7 @@ alias_t *aliasend_add(alias_t **top, char *name, char *value)
 	if (!newCore)
 		return (NULL);
 
-	newCore->net = NULL;
+	newCore->nex = NULL;
 	newCore->name = malloc(sizeof(char) * (p_strlent(name) + 1));
 	if (!newCore->name)
 	{
@@ -55,9 +55,9 @@ alias_t *aliasend_add(alias_t **top, char *name, char *value)
 	if (*top)
 	{
 		last = *top;
-		while (last->net != NULL)
+		while (last->nex != NULL)
 			last = last->nex;
-		last->net = newCore;
+		last->nex = newCore;
 	}
 	else
 		*top = newCore;
@@ -81,7 +81,7 @@ void alias_freelist(alias_t *top)
 
 	while (top)
 	{
-		net = top->nex;
+		nex = top->nex;
 		free(top->name);
 		free(top->value);
 		free(top);

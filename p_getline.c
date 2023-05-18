@@ -73,7 +73,7 @@ ssize_t p_getline(char **lneptr, size_t *w, FILE *strm)
  *
  */
 
-void assLineptr(char *lneptr, size_t *w, char *buffer, size_t bSize)
+void assLineptr(char **lneptr, size_t *w, char *buffer, size_t bSize)
 {
 	if (*lneptr == NULL)
 	{

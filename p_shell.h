@@ -4,6 +4,7 @@
 /** preprocessors **/
 #include <stdio.h>
 #include <sys/wait.h>
+#include <sys/stat.h>
 #include <errno.h>
 #include <stdlib.h>
 #include <sys/types.h>
@@ -58,14 +59,14 @@ typedef struct inbuilt_s
  *
  * Description:
  * @aname: aliaas anem
- * @aval: alias value
+ * @avalue: alias value
  * @net: pointer to new alais
  *
  */
 
 typedef struct alias_s
 {
-	char *val;
+	char *value;
 	char *name;
 	struct alias_s *nex;
 }alias_t;
@@ -85,7 +86,7 @@ int execute(char **args, char **ahead);
 
 /** p_shell.c functions **/
 int execute(char **args, char **ahead);
-void handle_sig(int signal);
+void handle_sig(int sign);
 
 /** for input **/
 char **alias_replace(char **args);
@@ -111,10 +112,10 @@ int parv_cd(char **args, char __attribute__((__unused__)) **ahead);
 /** string function **/
 int p_strncmp(const char *sr1, const char *sr2, size_t w);
 int p_strlent(const char *sr);
-int *p_strchar(char *sr, char k);
-int *p_strcat(char *dest, const char *src);
-int *p_strncat(char *dest, const char *src, size_t w);
-int *p_strcpy(char *dest, const char *src);
+char *p_strchr(char *sr, char k);
+char *p_strcat(char *destination, const char *source);
+char *p_strncat(char *dest, const char *src, size_t w);
+char *p_strcpy(char *dest, const char *src);
 int p_strspn(char *sr, char *valid);
 int p_strcmp(char *sr1, char *sr2);
 
@@ -131,7 +132,7 @@ char *err_rv(char **args);
 /** inbuilt assist **/
 char **p_getenv(const char *var);
 void env_free(void);
-char **p_envcopy(void);
+char **p_copyenv(void);
 
 /** linkedlist assist **/
 alias_t *aliasend_add(alias_t **top, char *var_name, char *val);

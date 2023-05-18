@@ -44,7 +44,7 @@ int execute(char **args, char **ahead)
 		}
 		if (child_pid == 0)
 		{
-			execve(prompt, args, envir);
+			execve(prompt, args, environ);
 			if (errno == EACCES)
 				exitStat = (err_create(args, 126));
 			env_free();
@@ -53,8 +53,10 @@ int execute(char **args, char **ahead)
 			_exit(exitStat);
 		}
 		else
+		{
 			wait(&status);
 			exitStat = WEXITSTATUS(status);
+		}
 	}
 	if (inval)
 		free(prompt);

@@ -113,7 +113,7 @@ char *acq_location(char *prompt)
 {
 	char **path, *temp;
 	link_t *dirt, *top;
-	struct stats srt;
+	struct stat srt;
 
 	/** get env path value **/
 	path = p_getenv("PATH");
@@ -133,13 +133,13 @@ char *acq_location(char *prompt)
 		p_strcat(temp, "/");
 		p_strcat(temp, prompt);
 
-		if (stats(temp, &srt) == 0)
+		if (stat(temp, &srt) == 0)
 		{
 			list_free(top);
 			return (temp);
 		}
 
-		dirt = dirt->net;
+		dirt = dirt->nex;
 		free(temp);
 	}
 	list_free(top);

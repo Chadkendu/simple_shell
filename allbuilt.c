@@ -108,14 +108,14 @@ int parv_alias(char **args, char __attribute__((__unused__)) **ahead)
 void alias_print(alias_t *alias)
 {
 	char *stringAliaz;
-	int length = p_strlent(alias->name) + p_strlent(alias->val) + 4;
+	int length = p_strlent(alias->name) + p_strlent(alias->value) + 4;
 
 	stringAliaz = malloc(sizeof(char) * (length + 1));
 	if (!stringAliaz)
 		return;
 	p_strcpy(stringAliaz, alias->name);
 	p_strcat(stringAliaz, "='");
-	p_strcat(stringAliaz, alias->val);
+	p_strcat(stringAliaz, alias->value);
 	p_strcat(stringAliaz, "'\n");
 
 	write(STDOUT_FILENO, stringAliaz, length);
@@ -146,19 +146,19 @@ char **alias_replace(char **args)
 		{
 			if (p_strcmp(args[b], temp->name) == 0)
 			{
-				newValue = malloc(sizeof(char) * (p_strlent(temp->val) + 1));
+				newValue = malloc(sizeof(char) * (p_strlent(temp->value) + 1));
 				if (!newValue)
 				{
 					args_free(args, args);
 					return (NULL);
 				}
-				p_strcpy(newValue, temp->val);
+				p_strcpy(newValue, temp->value);
 				free(args[b]);
 				args[b] = newValue;
 				b--;
 				break;
 			}
-			temp = temp->net;
+			temp = temp->nex;
 		}
 	}
 	return (args);

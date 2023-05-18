@@ -12,6 +12,9 @@
  *
  */
 
+int execute(char **args, char **ahead);
+void handle_signal(int sign);
+
 int main(int argc, char *argv[])
 {
 	int exitStat = 0, exi;
@@ -22,12 +25,12 @@ int main(int argc, char *argv[])
 	name = argv[0];
 	hist_count = 1;
 	aliaz = NULL;
-	signal(SIGINT, handle_sig);
+	signal(SIGINT, handle_signal);
 
 	*exec = 0;
 
 	/** copy environment variable **/
-	environ = p_envcopy();
+	environ = p_copyenv();
 	if (!environ)
 		exit(-100);
 
@@ -66,3 +69,25 @@ int main(int argc, char *argv[])
 	alias_freelist(aliaz);
 	return (*exec);
 }
+
+/**
+ * handle_signal - handles the SIGNINT signal printing a new prompt
+ *
+ * Description:
+ * @sign: signal number
+ *
+ * Return: void
+ *
+ */
+
+void handle_signal(int sign)
+{
+        char *newPrompt = "cimba$ ";
+
+        (void)sign; /** silence unused parameter warning **/
+        signal(SIGINT, handle_signal); /** reinstall signal handler **/
+        /** print new prompt **/
+        write(STDIN_FILENO, newPrompt, 10);
+}
+
+

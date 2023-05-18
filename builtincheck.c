@@ -91,10 +91,10 @@ void help_alias(void)
 	char *message = "alias: alias [NAME[='VALUE']\n";
 
 	write(STDOUT_FILENO, message, p_strlent(message));
-	message = "Prints list of all aliases,;
+	message = "Prints list of all aliases";
 	write(STDOUT_FILENO, message, p_strlent(message));
 	message = "the format NAME='VALUE' name [name2 ...]:prints";
-	write(STDOUT_FILENO, message, _strlent(message));
+	write(STDOUT_FILENO, message, p_strlent(message));
 	message = " the aliases name, name2, etc. one per line, in the ";
 	write(STDOUT_FILENO, message, p_strlent(message));
 	message = "form NAME='VALUE'.alias NAME='VALUE' [...]: Defines";

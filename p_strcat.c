@@ -20,7 +20,9 @@ char *p_strcpy(char *dest, const char *src)
 	size_t b;
 
 	for (b = 0; src[b] != '\0'; b++)
+	{
 		dest[b] = src[b];
+	}
 	dest[b] = '\0';
 	return (dest);
 }
@@ -39,7 +41,9 @@ int p_strlent(const char *sr)
 	int length = 0;
 
 	if (!sr)
+	{
 		return (length);
+	}
 	for (length = 0; sr[length]; length++)
 		;
 	return (length);
@@ -62,7 +66,9 @@ char *p_strncat(char *dest, const char *src, size_t w)
 	size_t b;
 
 	for (b = 0; b < w && src[b] != '\0'; b++)
+	{
 		dest[destLength + b] = src[b];
+	}
 	dest[destLength + b] = '\0';
 
 	return (dest);
@@ -87,10 +93,14 @@ char *p_strcat(char *dest, const char *src)
 	srcemp =  src;
 
 	while (*destemp != '\0')
+	{
 		destemp++;
+	}
 
 	while (*srcemp != '\0')
+	{
 		*destemp++ = *srcemp++;
+	}
 	*destemp = '\0';
 	return (dest);
 }

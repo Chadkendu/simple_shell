@@ -54,7 +54,7 @@ int parv_cd(char **args, char __attribute__((__unused__)) **ahead)
 {
 	char **dirInfo, *newLine = "\n";
 	char *prev_pwd = NULL, *pwd = NULL;
-	struct stats dir;
+	struct stat dir;
 
 	prev_pwd = getcwd(prev_pwd, 0);
 	if (!prev_pwd)
@@ -78,8 +78,8 @@ int parv_cd(char **args, char __attribute__((__unused__)) **ahead)
 		}
 		else
 		{
-			if (stats(args[0], &dirc) == 0 && S_ISDIR(dirc.st_mode)
-			    && ((dirc.st_mode & S_IXUSR) != 0))
+			if (stat(args[0], &dir) == 0 && S_ISDIR(dir.st_mode)
+			    && ((dir.st_mode & S_IXUSR) != 0))
 				chdir(args[0]);
 			else
 			{

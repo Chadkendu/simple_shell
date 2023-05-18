@@ -68,7 +68,7 @@ char *err_pa(char **args)
 
 	p_strcpy(erro, name);
 	p_strcat(erro, ": ");
-	p_strcat(erro, hist_str);
+	p_strcat(erro, hiStr);
 	p_strcat(erro, ": ");
 	p_strcat(erro, args[0]);
 	p_strcat(erro, ": Permission denied\n");

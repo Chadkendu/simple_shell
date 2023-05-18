@@ -77,10 +77,10 @@ int tokenLen(char *strg, char *delimiter)
 char **p_strtok(char *strg, char *delimiter)
 {
 	char **tokens;
-	int index = 0, numbToken, t, letters, l;
+	int index = 0, numbToken, t, let, ters;
 
 	/** count token string **/
-	numbToken = countToken(*strg, delimiter);
+	numbToken = countToken(strg, delimiter);
 	if (numbToken == 0)
 		return (NULL);
 	/** allocate memory for token array **/
@@ -92,23 +92,23 @@ char **p_strtok(char *strg, char *delimiter)
 	{
 		while (strg[index] == *delimiter)
 			index++;
-		letters = tokenLen(strg + index, delimiter);
+		let = tokenLen(strg + index, delimiter);
 		/** allocate memory for token **/
-		tokens[t] = malloc(sizeof(char) * (letters + 1));
+		tokens[t] = malloc(sizeof(char) * (let + 1));
 		if (!tokens[t])
 		{
-			for (index - = 1; index >= 0; index--)
+			for (index -= 1; index >= 0; index--)
 				free(tokens[index]);
 			free(tokens);
 			return (NULL);
 		}
 
-		for (l = 0; l < letters; l++)
+		for (ters = 0; ters < let; ters++)
 		{
-			tokens[t][l] = strg[index];
+			tokens[t][ters] = strg[index];
 			index++;
 		}
-		tokens[t][l] = '\0';
+		tokens[t][ters] = '\0';
 	}
 	tokens[t] = NULL;/** set last two element to NULL **/
 	tokens[t + 1] = NULL;

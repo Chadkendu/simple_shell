@@ -80,7 +80,7 @@ int parv_env(char **args, char __attribute__((__unused__)) **ahead)
 
 	for (inDex = 0; environ[inDex]; inDex++)
 	{
-		write(STDOUT_FILENO, envir[inDex], p_strlent(envir[inDex]));
+		write(STDOUT_FILENO, environ[inDex], p_strlent(environ[inDex]));
 		write(STDOUT_FILENO, &new, 1);
 	}
 	(void)args;

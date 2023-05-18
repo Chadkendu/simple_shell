@@ -115,9 +115,9 @@ int Xopen(char *filePath)
 
 	p_strcpy(erro, name);
 	p_strcat(erro, ": ");
-	p_strcat(erro, hist_str);
+	p_strcat(erro, hiStr);
 	p_strcat(erro, ": Invalid access ");
-	p_strcat(erro, file_path);
+	p_strcat(erro, filePath);
 	p_strcat(erro, "\n");
 
 	free(hiStr);

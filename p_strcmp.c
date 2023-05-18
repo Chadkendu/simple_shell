@@ -2,7 +2,7 @@
 
 int p_strncmp(const char *sr1, const char *sr2, size_t w);
 int p_strspn(char *sr, char *valid);
-char *p_strchar(char *sr, char k);
+char *p_strchr(char *sr, char k);
 int p_strcmp(char *sr1, char *sr2);
 
 /**
@@ -25,8 +25,10 @@ int p_strncmp(const char *sr1, const char *sr2, size_t w)
 	for (b = 0; sr1[b] && sr2[b] && b < w; b++)
 	{
 		if (sr1[b] > sr2[b])
+		{
 			return (sr1[b] - sr2[b]);
-		else if (sr1[b] < rs2[b])
+		}
+		else if (sr1[b] < sr2[b])
 			return (sr1[b] - sr2[b]);
 	}
 	if (b == w)
@@ -56,7 +58,9 @@ int p_strcmp(char *sr1, char *sr2)
 	}
 
 	if (*sr1 != *sr2)
+	{
 		return (*sr1 - *sr2);
+	}
 
 	return (0);
 }
@@ -74,12 +78,12 @@ int p_strcmp(char *sr1, char *sr2)
 
 char *p_strchr(char *sr, char k)
 {
-	int index;
+	int inDex;/** integer varible **/
 
-	for (index = 0; sr[index]; index++)
+	for (inDex = 0; sr[inDex]; inDex++)
 	{
-		if (sr[index] == k)
-			return (sr + index);
+		if (sr[inDex] == k)
+			return (sr + inDex);
 	}
 	return (NULL);
 }
@@ -96,14 +100,14 @@ char *p_strchr(char *sr, char k)
 
 int p_strspn(char *sr, char *valid)
 {
-	int index;
-	int bytes = 0;
+	int inDex;/** integer variable **/
+	int bytes = 0;/** bytes **/
 
 	while (*sr)
 	{
-		for (index = 0; valid[index]; index++)
+		for (inDex = 0; valid[inDex]; inDex++)
 		{
-			if (*sr == valid[index])
+			if (*sr == valid[inDex])
 			{
 				bytes++;
 				break;

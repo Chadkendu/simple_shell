@@ -22,7 +22,7 @@ void logicOps(char *line, ssize_t *newLength)
 
 	if (present == '&')
 	{
-		if (next == '&' && present != ' ')
+		if (next == '&' && past != ' ')
 			(*newLength)++;
 		else if (past == '&' && next != ' ')
 			(*newLength)++;

@@ -17,21 +17,21 @@ char *envir_value(char *start, int length);
 void rep_variable(char **args, int *exec)
 {
 	int m, n = 0, length;
-	char *replacement = NULL, *prev_line = NULL, *pres_line;
+	char *replace = NULL, *prev_line = NULL, *pres_line;
 
 	prev_line = *args;
 	for (m = 0; prev_line[m]; m++)
 	{
-		if (prev_line[m] == '$' && prev_line[j + 1] && prev_line[n + 1] != ' ')
+		if (prev_line[m] == '$' && prev_line[n + 1] && prev_line[n + 1] != ' ')
 		{
 			if (prev_line[m + 1] == '$')
 			{
-				replacement = get_pid();
+				replace = get_pid();
 				n = m + 2;
 			}
 			else if (prev_line[m + 1] == '?')
 			{
-				replacement = p_atoi(*exec);
+				replace = p_atoi(*exec);
 				n = m + 2;
 			}
 			else if (prev_line[m + 1])
@@ -42,19 +42,19 @@ void rep_variable(char **args, int *exec)
 					     prev_line[m] != ' '; n++)
 					;
 				length = n - (m + 1);
-				replacement = envir_value(&prev_line[n + 1], length);
+				replace = envir_value(&prev_line[n + 1], length);
 			}
-			pres_line = malloc(j + p_strlent(replacement)
+			pres_line = malloc(n + p_strlent(replace)
 					  + p_strlent(&prev_line[n]) + 1);
-			if (!agrs)
+			if (!args)
 				return;
 			pres_line[0] = '\0';
 			p_strncat(pres_line, prev_line, m);
-			if (replacement)
+			if (replace)
 			{
-				p_strcat(pres_line, replacement);
-				free(replacement);
-				replacement = NULL;
+				p_strcat(pres_line, replace);
+				free(replace);
+				replace = NULL;
 			}
 			p_strcat(pres_line, &prev_line[n]);
 			free(prev_line);
@@ -141,25 +141,25 @@ char *get_pid(void)
 char *envir_value(char *start, int length)
 {
 	char **varAdd;
-	char *replacement = NULL, *temp, *var;
+	char *replace = NULL, *temp, *variable;
 
-	var = malloc(length + 1);
-	if (!var)
+	variable = malloc(length + 1);
+	if (!variable)
 		return (NULL);
-	var[0] = '\0';
-	p_strncat(var, start, length);
+	variable[0] = '\0';
+	p_strncat(variable, start, length);
 
-	varAdd = p_getenv(var);
-	free(var);
+	varAdd = p_getenv(variable);
+	free(variable);
 	if (varAdd)
 	{
 		temp = *varAdd;
 		while (*temp != '=')
 			temp++;
 		temp++;
-		replacement = malloc(p_strlent(temp) + 1);
-		if (replacement)
-			p_strcpy(replacement, temp);
+		replace = malloc(p_strlent(temp) + 1);
+		if (replace)
+			p_strcpy(replace, temp);
 	}
-	return (replacement);
+	return (replace);
 }
