@@ -38,8 +38,7 @@ int main(int argc, char *argv[])
 	{
 		while (exitStat != FILE_END && exitStat != EXIT)
 			exitStat = args_handle(exec);
-		env_free();
-		alias_freelist(aliaz);
+		env_free(), alias_freelist(aliaz);
 		return (*exec);
 	}
 	while (1)/** interactive **/
@@ -50,8 +49,7 @@ int main(int argc, char *argv[])
 		{
 			if (exitStat == FILE_END)
 				write(STDOUT_FILENO, newLine, 1);
-			env_free();
-			alias_freelist(aliaz);
+			env_free(), alias_freelist(aliaz);
 			exit(*exec);
 		}
 	}
