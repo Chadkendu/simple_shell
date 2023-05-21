@@ -1,5 +1,8 @@
 #include "p_shell.h"
 
+void *p_realloc(void *ptr, unsigned int prev_size, unsigned int pres_size);
+void assLineptr(char **lneptr, size_t *w, char *buffer, size_t bSize);
+
 /**
  * p_getline - function to read input from stream
  *

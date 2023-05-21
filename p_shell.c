@@ -55,8 +55,7 @@ int main(int argc, char *argv[])
 			exit(*exec);
 		}
 	}
-	env_free();
-	alias_freelist(aliaz);
+	env_free(), alias_freelist(aliaz);
 	return (*exec);
 }
 
