@@ -50,7 +50,6 @@ char *chkfile(char *strg)
 		fclose(file);
 		return (cart);
 	}
-	free(line);
-	fclose(file);
+	free(line), fclose(file);
 	return (NULL);
 }
