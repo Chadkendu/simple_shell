@@ -69,7 +69,7 @@ char *fillDirPath(char *path)
 		}
 		else
 			length++;
-	}/** calculate string length **/
+	} /** calculate string length **/
 	pathCopy = malloc(sizeof(char) * (length + 1));
 	if (!pathCopy)
 		return (NULL);

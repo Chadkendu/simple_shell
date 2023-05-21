@@ -86,7 +86,7 @@ int execute(char **args, char **ahead);
 
 /** p_shell.c functions **/
 int execute(char **args, char **ahead);
-void handle_sig(int sign);
+void sigHandler(int sign);
 
 /** for input **/
 char **alias_replace(char **args);

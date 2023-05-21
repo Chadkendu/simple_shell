@@ -193,7 +193,7 @@ int args_handle(int *exec)
  * Description:
  * @args: array of arguments.
  * @ahead: double pointer to args beginning
- * @exect: return value of the parent process (last executed command)
+ * @exec: return value of the parent process (last executed command)
  *
  * Return: the return value of the command executed last
  *

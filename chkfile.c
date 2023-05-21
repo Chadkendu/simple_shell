@@ -1,9 +1,4 @@
 #include "p_shell.h"
-#include <stdio.h>
-#include <unistd.h>
-#include <string.h>
-#include <sys/wait.h>
-#include <stdlib.h>
 
 /**
  * chkfile - function to check if given string is present
@@ -26,9 +21,7 @@ char *chkfile(char *strg)
 		return (NULL);
 	file = fopen("words.txt", "r");
 	if (file == NULL)
-	{
 		return (NULL);
-	}
 
 	while (!feof(file))
 	{

@@ -12,8 +12,6 @@
  *
  */
 
-int execute(char **args, char **ahead);
-void handle_signal(int sign);
 
 int main(int argc, char *argv[])
 {
@@ -21,29 +19,22 @@ int main(int argc, char *argv[])
 	int *exec = &exi;
 	char *prompt = "cimba$ ", *newLine = "\n";
 
-	/** initailize global variable **/
 	name = argv[0];
 	hist_count = 1;
 	aliaz = NULL;
-	signal(SIGINT, handle_signal);
-
+	signal(SIGINT, sigHandler);
 	*exec = 0;
-
-	/** copy environment variable **/
-	environ = p_copyenv();
+	environ = p_copyenv();/** copy env var **/
 	if (!environ)
 		exit(-100);
-
-	/** check for file commands **/
-	if (argc != 1)
+	if (argc != 1)/** check file cmd **/
 	{
 		exitStat = file_commandproc(argv[1], exec);
 		env_free();
 		alias_freelist(aliaz);
 		return (*exec);
 	}
-	/** check for non-interactive mode **/
-	if (!isatty(STDIN_FILENO))
+	if (!isatty(STDIN_FILENO))/** check non_int mode **/
 	{
 		while (exitStat != FILE_END && exitStat != EXIT)
 			exitStat = args_handle(exec);
@@ -51,8 +42,7 @@ int main(int argc, char *argv[])
 		alias_freelist(aliaz);
 		return (*exec);
 	}
-	/** interactive mode **/
-	while (1)
+	while (1)/** interactive **/
 	{
 		write(STDOUT_FILENO, prompt, 10);
 		exitStat = args_handle(exec);
@@ -71,7 +61,7 @@ int main(int argc, char *argv[])
 }
 
 /**
- * handle_signal - handles the SIGNINT signal printing a new prompt
+ * sigHandler - handles the SIGNINT signal printing a new prompt
  *
  * Description:
  * @sign: signal number
@@ -80,14 +70,14 @@ int main(int argc, char *argv[])
  *
  */
 
-void handle_signal(int sign)
+void sigHandler(int sign)
 {
-        char *newPrompt = "cimba$ ";
+	char *newPrompt = "cimba$ ";
 
-        (void)sign; /** silence unused parameter warning **/
-        signal(SIGINT, handle_signal); /** reinstall signal handler **/
-        /** print new prompt **/
-        write(STDIN_FILENO, newPrompt, 10);
+	(void)sign; /** silence unused parameter warning **/
+	signal(SIGINT, sigHandler); /** reinstall signal handler **/
+	/** print new prompt **/
+	write(STDIN_FILENO, newPrompt, 10);
 }
 
 

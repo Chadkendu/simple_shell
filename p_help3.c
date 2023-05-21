@@ -9,7 +9,7 @@ char *envir_value(char *start, int length);
  * rep_variable - Handle variable replacement
  *
  * Description:
- * @strg: double pointer containing command and arguments.
+ * @args: double pointer containing command and arguments.
  * @exec: A pointer return value of the last executed command.
  *
  */

@@ -5,7 +5,7 @@ void handleLine(char **line, ssize_t scan);
 ssize_t getNewLength(char *line);
 
 /**
- * logicalOps - Checks for logical operators "||" or "&&"
+ * logicOps - Checks for logical operators "||" or "&&"
  *
  * Description:
  * @line: pointer to character to check

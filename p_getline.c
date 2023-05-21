@@ -11,8 +11,6 @@
  * Return: read bytes (number)
  */
 
-void *p_realloc(void *ptr, unsigned int prev_size, unsigned int pres_size);
-void assLineptr(char **lneptr, size_t *w, char *buffer, size_t bSize);
 ssize_t p_getline(char **lneptr, size_t *w, FILE *strm);
 
 ssize_t p_getline(char **lneptr, size_t *w, FILE *strm)
@@ -67,7 +65,7 @@ ssize_t p_getline(char **lneptr, size_t *w, FILE *strm)
  * @lneptr: stored input string buffer
  * @w: lneptr size
  * @bSize: buffer size
- * @buff: assigned string ti lneptr
+ * @buffer: assigned string ti lneptr
  *
  * Return: void
  *
@@ -135,7 +133,7 @@ void *p_realloc(void *ptr, unsigned int prev_size, unsigned int pres_size)
 		free(ptr);
 		return (NULL);
 	}
-	
+
 	ptrCopy = ptr;
 	memory = malloc(sizeof(*ptrCopy) * pres_size);
 	if (memory == NULL)
