@@ -24,7 +24,6 @@ int execute(char **args, char **ahead)
 		inval = 1;
 		prompt = acq_location(prompt);
 	} /** checks if prompt start with '/' or '.' **/
-
 	if (!prompt || (access(prompt, F_OK) == -1))
 	{
 		if (errno == EACCES)
@@ -47,16 +46,11 @@ int execute(char **args, char **ahead)
 			execve(prompt, args, environ);
 			if (errno == EACCES)
 				exitStat = (err_create(args, 126));
-			env_free();
-			args_free(args, ahead);
-			alias_freelist(aliaz);
-			_exit(exitStat);
+			env_free(), args_free(args, ahead);
+			alias_freelist(aliaz), _exit(exitStat);
 		}
 		else
-		{
-			wait(&status);
-			exitStat = WEXITSTATUS(status);
-		}
+			wait(&status), exitStat = WEXITSTATUS(status);
 	}
 	if (inval)
 		free(prompt);
