@@ -14,12 +14,12 @@ char *envir_value(char *start, int length);
  *
  */
 
-void rep_variable(char **args, int *exec)
+void rep_variable(char **lne, int *exec)
 {
 	int m, n = 0, length;
 	char *replace = NULL, *prev_line = NULL, *pres_line;
 
-	prev_line = *args;
+	prev_line = *lne;
 	for (m = 0; prev_line[m]; m++)
 	{
 		if (prev_line[m] == '$' && prev_line[n + 1] && prev_line[n + 1] != ' ')
@@ -45,7 +45,7 @@ void rep_variable(char **args, int *exec)
 			}
 			pres_line = malloc(n + p_strlent(replace)
 					  + p_strlent(&prev_line[n]) + 1);
-			if (!args)
+			if (!lne)
 				return;
 			pres_line[0] = '\0';
 			p_strncat(pres_line, prev_line, m);
@@ -57,7 +57,7 @@ void rep_variable(char **args, int *exec)
 			}
 			p_strcat(pres_line, &prev_line[n]);
 			free(prev_line);
-			*args = prev_line;
+			*lne = prev_line;
 			prev_line = pres_line;
 			m = -1;
 		}
