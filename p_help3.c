@@ -57,7 +57,7 @@ void rep_variable(char **line, int *exec)
 			}
 			p_strcat(pres_line, &prev_line[n]);
 			free(prev_line);
-			*line = prev_line;
+			*line = pres_line;
 			prev_line = pres_line;
 			m = -1;
 		}
