@@ -14,7 +14,7 @@ ssize_t getNewLength(char *line);
 
 void logicOps(char *line, ssize_t *newLength)
 {
-	char past, present, next;
+	char past, present, nex;
 
 	past = *(line - 1);
 	present = *line;
@@ -22,16 +22,16 @@ void logicOps(char *line, ssize_t *newLength)
 
 	if (present == '&')
 	{
-		if (next == '&' && past != ' ')
+		if (nex == '&' && past != ' ')
 			(*newLength)++;
-		else if (past == '&' && next != ' ')
+		else if (past == '&' && nex != ' ')
 			(*newLength)++;
 	}
 	else if (present == '|')
 	{
-		if (next == '|' && past != ' ')
+		if (nex == '|' && past != ' ')
 			(*newLength)++;
-		else if (past == '|' && next != ' ')
+		else if (past == '|' && nex != ' ')
 			(*newLength)++;
 	}
 }
@@ -51,12 +51,12 @@ ssize_t get_newLength(char *line)
 {
 	size_t b;
 	ssize_t newLength = 0;
-	char present, next;
+	char present, nex;
 
 	for (b = 0; line[b]; b++)
 	{
 		present = line[b];
-		next = line[b + 1];
+		nex = line[b + 1];
 		if (present == '#')
 		{
 			if (b == 0 || line[b - 1] == ' ')
@@ -69,19 +69,19 @@ ssize_t get_newLength(char *line)
 		{
 			if (present == ';')
 			{
-				if (next == ';' && line[b - 1] != ' ' && line[b - 1] != ';')
+				if (nex == ';' && line[b - 1] != ' ' && line[b - 1] != ';')
 				{
 					newLength += 2;
 					continue;
 				}
-				else if (line[b - 1] == ';' && next != ' ')
+				else if (line[b - 1] == ';' && nex != ' ')
 				{
 					newLength += 2;
 					continue;
 				}
 				if (line[b - 1] != ' ')
 					newLength++;
-				if (next != ' ')
+				if (nex != ' ')
 					newLength++;
 			}
 			else
@@ -91,7 +91,7 @@ ssize_t get_newLength(char *line)
 		{
 			if (b != 0 && line[b - 1] != ' ')
 				newLength++;
-			if (next != ' ' && next != ';')
+			if (nex != ' ' && nex != ';')
 				newLength++;
 		}
 		newLength++;
@@ -113,7 +113,7 @@ ssize_t get_newLength(char *line)
 void handleLine(char **line, ssize_t read)
 {
 	char *prev_line, *pres_line;
-	char past, present, next;
+	char past, present, nex;
 	size_t b, d;
 	ssize_t newLength;
 
@@ -128,19 +128,19 @@ void handleLine(char **line, ssize_t read)
 	for (b = 0; prev_line[b]; b++)
 	{
 		present = prev_line[b];
-		next = prev_line[b + 1];
+		nex = prev_line[b + 1];
 		if (b != 0)
 		{
 			past = prev_line[b - 1];
 			if (present == ';')
 			{
-				if (next == ';' && past != ' ' && past != ';')
+				if (nex == ';' && past != ' ' && past != ';')
 				{
 					pres_line[d++] = ' ';
 					pres_line[d++] = ';';
 					continue;
 				}
-				else if (past == ';' && next != ' ')
+				else if (past == ';' && nex != ' ')
 				{
 					pres_line[d++] = ';';
 					pres_line[d++] = ' ';
@@ -149,15 +149,15 @@ void handleLine(char **line, ssize_t read)
 				if (past != ' ')
 					pres_line[d++] = ' ';
 				pres_line[d++] = ';';
-				if (next != ' ')
+				if (nex != ' ')
 					pres_line[d++] = ' ';
 				continue;
 			}
 			else if (present == '&')
 			{
-				if (next == '&' && past != ' ')
+				if (nex == '&' && past != ' ')
 					pres_line[d++] = ' ';
-				else if (past == '&' && next != ' ')
+				else if (past == '&' && nex != ' ')
 				{
 					pres_line[d++] = '&';
 					pres_line[d++] = ' ';
@@ -166,9 +166,9 @@ void handleLine(char **line, ssize_t read)
 			}
 			else if (present == '|')
 			{
-				if (next == '|' && past != ' ')
+				if (nex == '|' && past != ' ')
 					pres_line[d++]  = ' ';
-				else if (past == '|' && next != ' ')
+				else if (past == '|' && nex != ' ')
 				{
 					pres_line[d++] = '|';
 					pres_line[d++] = ' ';
@@ -181,7 +181,7 @@ void handleLine(char **line, ssize_t read)
 			if (b != 0 && prev_line[b - 1] != ' ')
 				pres_line[d++] = ' ';
 			pres_line[d++] = ';';
-			if (next != ' ' && next != ';')
+			if (nex != ' ' && nex != ';')
 				pres_line[d++] = ' ';
 			continue;
 		}
