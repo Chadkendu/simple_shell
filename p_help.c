@@ -82,16 +82,16 @@ int args_call(char **args, char **ahead, int *exec)
 char *args_acq(char *line, int *exec)
 {
 	size_t w = 0;
-	ssize_t scan;
+	ssize_t read;
 	char *prompt = "cimba$ ";
 
 	if (line)
 		free(line);
 
-	scan = p_getline(&line, &w, STDIN_FILENO);
-	if (scan == -1)
+	read = p_getline(&line, &w, STDIN_FILENO);
+	if (read == -1)
 		return (NULL);
-	if (scan == 1)
+	if (read == 1)
 	{
 		hist_count++;
 		if (isatty(STDIN_FILENO))
@@ -99,9 +99,9 @@ char *args_acq(char *line, int *exec)
 		return (args_acq(line, exec));
 	}
 
-	line[scan - 1] = '\0';
+	line[read - 1] = '\0';
 	rep_variable(&line, exec);
-	handleLine(&line, scan);
+	handleLine(&line, read);
 
 	return (line);
 }
