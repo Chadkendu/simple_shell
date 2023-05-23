@@ -36,7 +36,6 @@ void rep_variable(char **args, int *exec)
 			}
 			else if (prev_line[m + 1])
 			{
-				/** extract variable name to search **/
 				for (n = n + 1; prev_line[n] &&
 					     prev_line[m] != '$' &&
 					     prev_line[m] != ' '; n++)
