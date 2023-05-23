@@ -18,7 +18,7 @@ void logicOps(char *line, ssize_t *newLength)
 
 	past = *(line - 1);
 	present = *line;
-	next = *(line + 1);
+	nex = *(line + 1);
 
 	if (present == '&')
 	{
