@@ -34,7 +34,7 @@ int p_strncmp(const char *sr1, const char *sr2, size_t w)
 	if (b == w)
 		return (0);
 	else
-		return (-15);
+		return (-10);
 }
 
 /**
