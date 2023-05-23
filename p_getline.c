@@ -127,7 +127,7 @@ void *p_realloc(void *ptr, unsigned int prev_size, unsigned int pres_size)
 		if (memory == NULL)
 			return (NULL);
 
-		return (NULL);
+		return (memory);
 	}
 
 	if (pres_size == 0 && ptr != NULL)
