@@ -1,7 +1,7 @@
 #include "p_shell.h"
 
 void logicOps(char *line, ssize_t *newLength);
-void handleLine(char **line, ssize_t scan);
+void handleLine(char **line, ssize_t read);
 ssize_t getNewLength(char *line);
 
 /**
@@ -110,7 +110,7 @@ ssize_t get_newLength(char *line)
  * Replaces "#" with '\0'.
  */
 
-void handleLine(char **line, ssize_t scan)
+void handleLine(char **line, ssize_t read)
 {
 	char *prev_line, *pres_line;
 	char past, present, next;
@@ -118,7 +118,7 @@ void handleLine(char **line, ssize_t scan)
 	ssize_t newLength;
 
 	newLength = get_newLength(*line);
-	if (newLength == scan - 1)
+	if (newLength == read - 1)
 		return;
 	pres_line = malloc(newLength + 1);
 	if (!pres_line)
