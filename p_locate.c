@@ -63,7 +63,7 @@ char *fillDirPath(char *path)
 		if (path[b] == ':')
 		{
 			if (path[b + 1] == ':' || b == 0 || path[b + 1] == '\0')
-				length += p_strlen(pwd) + 1;
+				length += p_strlent(pwd) + 1;
 			else
 				length++;
 		}
@@ -125,7 +125,7 @@ char *acq_location(char *prompt)
 
 	while (dirt)
 	{
-		temp = malloc(p_strlen(dirt->dir) + p_strlent(prompt) + 2);
+		temp = malloc(p_strlent(dirt->dir) + p_strlent(prompt) + 2);
 		if (!temp)
 			return (NULL);
 
