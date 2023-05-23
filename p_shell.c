@@ -17,7 +17,7 @@ int main(int argc, char *argv[])
 {
 	int exitStat = 0, exi;
 	int *exec = &exi;
-	char *prompt = "cimba$ ", *newLine = "\n";
+	char *prompt = "cimba$ ", *newLine = "";
 
 	name = argv[0];
 	hist_count = 1;
