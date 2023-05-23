@@ -17,7 +17,7 @@ void help_help(void)
 	write(STDOUT_FILENO, message, p_strlent(message));
 	message = "help [BUILTIN NAME] ";
 	write(STDOUT_FILENO, message, p_strlent(message));
-	message = "inbuilt command.\n";
+	message = "builtin command.\n";
 	write(STDOUT_FILENO, message, p_strlent(message));
 }
 
@@ -36,9 +36,9 @@ void help_cd(void)
 	write(STDOUT_FILENO, message, p_strlent(message));
 	message = " given, the command is interpreted  cd $OLDPWD.\n\n";
 	write(STDOUT_FILENO, message, p_strlent(message));
-	message = "The environment variables PWD and OLDPWD are updated ";
+	message = "Environment variables PWD and OLDPWD updated ";
 	write(STDOUT_FILENO, message, p_strlent(message));
-	message = "after a change of directory.\n";
+	message = "after a directory change.\n";
 	write(STDOUT_FILENO, message, p_strlent(message));
 }
 
@@ -55,7 +55,7 @@ void help_exit(void)
 	write(STDOUT_FILENO, message, p_strlent(message));
 	message = " If no argument  the command is interpreted as";
 	write(STDOUT_FILENO, message, p_strlent(message));
-	message = " exit 0.\n";
+	message = " exit 0(success).\n";
 	write(STDOUT_FILENO, message, p_strlent(message));
 }
 
@@ -68,15 +68,15 @@ void help_all(void)
 	char *message = "Parv commands are defined internally.\n";
 
 	write(STDOUT_FILENO, message, p_strlent(message));
-	message = "Type 'help' to see this list.\nType 'help name' to find ";
+	message = "Type 'help' to see this list.Type 'help name' to find ";
 	write(STDOUT_FILENO, message, p_strlent(message));
-	message = "out more about function 'name'.\n\n  alias   \t";
+	message = "out more about function 'name'.\nalias\t";
 	write(STDOUT_FILENO, message, p_strlent(message));
-	message = "alias [NAME[='VALUE'] ...]\n  cd    \tcd   ";
+	message = "alias [NAME[='VALUE'] ...]  cd\tcd   ";
 	write(STDOUT_FILENO, message, p_strlent(message));
-	message = "[DIRECTORY]\n  exit    \texit [STATUS]\n  env     \tenv";
+	message = "[DIRECTORY]\n exit [STATUS]\n  env\tenv";
 	write(STDOUT_FILENO, message, p_strlent(message));
-	message = "\n  setenv  \tsetenv [VARIABLE] [VALUE]\n  unsetenv\t";
+	message = "\nsetenv setenv [VARIABLE] [VALUE]\n  unsetenv\t";
 	write(STDOUT_FILENO, message, p_strlent(message));
 	message = "unsetenv [VARIABLE]\n";
 	write(STDOUT_FILENO, message, p_strlent(message));
@@ -91,16 +91,16 @@ void help_alias(void)
 	char *message = "alias: alias [NAME[='VALUE']\n";
 
 	write(STDOUT_FILENO, message, p_strlent(message));
-	message = "Prints list of all aliases";
+	message = "Prints all aliases list to the terminal";
 	write(STDOUT_FILENO, message, p_strlent(message));
-	message = "the format NAME='VALUE' name [name2 ...]:prints";
+	message = " :prints";
 	write(STDOUT_FILENO, message, p_strlent(message));
-	message = " the aliases name, name2, etc. one per line, in the ";
+	message = " the aliases ene per line, in the ";
 	write(STDOUT_FILENO, message, p_strlent(message));
-	message = "form NAME='VALUE'.alias NAME='VALUE' [...]: Defines";
+	message = "form E'.alias NAME='VALUE' [...]: Defines";
 	write(STDOUT_FILENO, message, p_strlent(message));
-	message = " an alias f is given. If NAME ";
+	message = " an lias fis given. If NAME ";
 	write(STDOUT_FILENO, message, p_strlent(message));
-	message = "is already an alias, replace its value with VALUE.\n";
+	message = "is alr an aliah VALUE.\n";
 	write(STDOUT_FILENO, message, p_strlent(message));
 }
