@@ -4,6 +4,9 @@ char *acq_location(char *prompt);
 link_t *getDirPath(char *path);
 char *fillDirPath(char *path);
 
+char *name;
+int hist_count;
+
 /**
  * getDirPath - Tokenize list of driectory into a linkedlist
  *
