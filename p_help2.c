@@ -4,6 +4,9 @@ void logicOps(char *line, ssize_t *newLength);
 void handleLine(char **line, ssize_t read);
 ssize_t getNewLength(char *line);
 
+char *name;
+int hist_count;
+
 /**
  * logicOps - Checks for logical operators "||" or "&&"
  *
