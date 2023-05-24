@@ -5,6 +5,9 @@ int parv_exit(char **args, char **ahead);
 int parv_cd(char **args, char __attribute__((__unused__)) **ahead);
 int parv_help(char **args, char __attribute__((__unused__)) **ahead);
 
+char *name;
+int hist_count;
+
 /**
  * parv_help - Displays information about parv commands
  *
