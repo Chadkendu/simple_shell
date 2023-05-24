@@ -1,5 +1,8 @@
 #include "p_shell.h"
 
+char *name;
+int hist_count;
+
 /**
  * list_free - free linkedlist
  *
