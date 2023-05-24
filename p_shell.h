@@ -21,15 +21,13 @@
 
 /** global **/
 extern char **environ;/** environment extern var **/
-char *name;
-int hist_count;
 
 /**
  * struct link_s - linked list struct
  *
  * Description:
- * @dirc: directory
- * @net: new pointer to struct link_s.
+ * @dir: directory
+ * @nex: new pointer to struct link_s.
  *
  */
 
@@ -37,14 +35,14 @@ typedef struct link_s
 {
 	char *dir;
 	struct link_s *nex;
-}link_t;
+} link_t;
 
 /**
- * inbuilt_s struct - struct for builtin commands
+ * struct inbuilt_s - struct for builtin commands
  *
  * Description:
- * @bname: builtin command name
- * @fpnt: function pointer
+ * @name: builtin command name
+ * @f: function pointer
  *
  */
 
@@ -52,15 +50,15 @@ typedef struct inbuilt_s
 {
 	char *name;
 	int (*f)(char **argv, char **ahead);
-}inbuilt_t;
+} inbuilt_t;
 
 /**
- * alias_s struct - struct for defining alias
+ * struct alias_s - struct for defining alias
  *
  * Description:
- * @aname: aliaas anem
- * @avalue: alias value
- * @net: pointer to new alais
+ * @name: aliaas anem
+ * @value: alias value
+ * @nex: pointer to new alais
  *
  */
 
@@ -69,7 +67,7 @@ typedef struct alias_s
 	char *value;
 	char *name;
 	struct alias_s *nex;
-}alias_t;
+} alias_t;
 
 /** global linked list alias **/
 alias_t *aliaz;
