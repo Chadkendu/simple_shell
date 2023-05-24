@@ -4,6 +4,9 @@ char **p_getenv(const char *var);
 char **p_copyenv(void);
 void env_free(void);
 
+char *name;
+int hist_count;
+
 /**
  * env_free - Function to free copy of the environment
  *
