@@ -4,6 +4,9 @@ int parv_env(char **args, char __attribute__((__unused__)) **ahead);
 int parv_unsetenv(char **args, char __attribute__((__unused__)) **ahead);
 int parv_setenv(char **args, char __attribute__((__unused__)) **ahead);
 
+char *name;
+int hist_count;
+
 /**
  * parv_setenv - Changes or adds environmental variable to PATH
  *
