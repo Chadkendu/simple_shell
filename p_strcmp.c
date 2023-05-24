@@ -5,6 +5,9 @@ int p_strspn(char *sr, char *valid);
 char *p_strchr(char *sr, char k);
 int p_strcmp(char *sr1, char *sr2);
 
+char *name;
+int hist_count;
+
 /**
  * p_strncmp - function to compare two strings
  *
