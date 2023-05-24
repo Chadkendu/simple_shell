@@ -5,6 +5,9 @@ char **alias_replace(char **args);
 int parv_alias(char **args, char __attribute__((__unused__)) **ahead);
 void alias_set(char *varName, char *value);
 
+char *name;
+int hist_count;
+
 /**
  * alias_set - set alias with new value or make a new one
  *
