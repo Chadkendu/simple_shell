@@ -104,7 +104,7 @@ ssize_t get_newLength(char *line)
  *
  * Description:
  * @line: pointer to a line read from standard input.
- * @scan: The length of line.
+ * @read: The length of line.
  *
  * Description: Spaces are inserted to separate ";", "||", and "&&".
  * Replaces "#" with '\0'.
