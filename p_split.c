@@ -4,6 +4,9 @@ char **p_strtok(char *strg, char *delimiter);
 int countToken(char *strg, char *delimiter);
 int tokenLen(char *strg, char *delimiter);
 
+char *name;
+int hist_count;
+
 /**
  * countToken - function to count the numbers of token in a string
  *
