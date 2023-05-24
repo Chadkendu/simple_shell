@@ -6,6 +6,9 @@ int args_handle(int *exec);
 int args_run(char **args, char **ahead, int *exec);
 int args_call(char **args, char **ahead, int *exec);
 
+char *name;
+int hist_count;
+
 /**
  * args_call - Partitions operators from commands and calls them
  *
