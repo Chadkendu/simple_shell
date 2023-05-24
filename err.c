@@ -4,6 +4,9 @@ int err_create(char **args, int erro);
 int numb_len(int numb);
 char *p_atoi(int numb);
 
+char *name;
+int hist_count;
+
 /**
  * p_atoi - function to convert integer to a string
  *
