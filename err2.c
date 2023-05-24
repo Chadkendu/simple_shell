@@ -3,6 +3,9 @@
 char *err_pa(char **args);
 char *err_rv(char **args);
 
+char *name;
+int hist_count;
+
 /**
  * err_rv - function for commnad invalid
  *
