@@ -6,6 +6,9 @@ char *err_exit(char **args);
 char *err_cd(char **args);
 char *err_syntax(char **args);
 
+char *name;
+int hist_count;
+
 /**
  * err_syntax - function for syntax message errors
  *
