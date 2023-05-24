@@ -5,6 +5,9 @@ char *p_strcat(char *dest, const char *src);
 int p_strlent(const char *sr);
 char *p_strcpy(char *dest, const char *src);
 
+char *name;
+int hist_count;
+
 /**
  * p_strcpy - Copies the string to buffer
  *
