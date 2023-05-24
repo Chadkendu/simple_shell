@@ -3,6 +3,9 @@
 int file_commandproc(char *filePath, int *exec);
 int Xopen(char *filePath);
 
+char *name;
+int hist_count;
+
 /**
  * file_commandproc - gets a file and runs a command
  *
