@@ -5,6 +5,9 @@ void rep_variable(char **args, int *exec);
 char *get_pid(void);
 char *envir_value(char *start, int length);
 
+char *name;
+int hist_count;
+
 /**
  * rep_variable - Handle variable replacement
  *
